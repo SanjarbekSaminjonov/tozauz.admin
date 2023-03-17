@@ -1,4 +1,5 @@
 import "./sidebar.scss"
+
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import CategoryIcon from "@mui/icons-material/Category";
@@ -21,10 +22,6 @@ const Sidebar = () => {
                     <li>
                         <DashboardIcon className="icon" />
                         <span>Dashboard</span>
-                    </li>
-                    <li>
-                        <AdminPanelSettingsIcon className="icon" />
-                        <span>Settings</span>
                     </li>
                     <li>
                         <PeopleIcon className="icon" />
