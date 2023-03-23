@@ -17,6 +17,7 @@ import TableFilter from "../../components/filter/Filter"
 import DataTable from "../../components/dataTable/DataTable"
 import { getUsers } from "../../services/users.services";
 import UserDelete from "./UserDelete";
+import UserCreate from "./UserCreate";
 
 
 const Users = () => {
@@ -166,6 +167,9 @@ const Users = () => {
             <div className="table">
                 <div className="tableFiler">
                     <TableFilter onFilterChange={onFilterChange} />
+                    <UserCreate
+                        setLoad={setLoad}
+                    />
                 </div>
                 <DataTable
                     isLoading={loading}

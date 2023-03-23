@@ -1,15 +1,33 @@
 import "./navbar.scss"
+
+import { useNavigate } from "react-router-dom";
+
+import Badge from "@mui/material/Badge";
+import Tooltip from '@mui/material/Tooltip';
 import SearchIcon from "@mui/icons-material/Search";
-import TranslateIcon from "@mui/icons-material/Translate";
+// import TranslateIcon from "@mui/icons-material/Translate";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Button } from "@mui/material";
 
-import FullscreenOutlinedIcon from "@mui/icons-material/FullscreenOutlined";
-// import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
-
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-// import import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import { authServices } from "../../services/auth.services";
+import { useEffect } from "react";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const admin = authServices.admin;
+
+    useEffect(() => {
+        if (authServices.isAuthenticated() === false) {
+            navigate("/login");
+        }
+    }, [navigate])
+
+    const handleLogout = () => {
+        authServices.logout();
+        navigate("/login");
+    }
+
     return (
         <div className="navbar">
             <div className="wrapper">
@@ -19,22 +37,30 @@ const Navbar = () => {
                 </div>
 
                 <div className="items">
-                    <div className="item">
+                    {/* <div className="item">
                         <TranslateIcon className="icon" />
                         English
+                    </div> */}
+                    <div className="item">
+                        <Badge badgeContent={4} color="primary">
+                            <NotificationsNoneOutlinedIcon className="icon" />
+                        </Badge>
                     </div>
                     <div className="item">
-                        <NotificationsNoneOutlinedIcon className="icon" />
-                        <div className="counter">9+</div>
-                    </div>
-                    <div className="item">
-                        <FullscreenOutlinedIcon className="icon" />
-                    </div>
-                    <div className="item">
-                        <DarkModeOutlinedIcon className="icon" />
-                    </div>
-                    <div className="item">
-                        <img className="avatar" src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg" alt="Avatar" />
+                        <div className="admin">
+                            <div className="info">
+                                <span className="name">{admin.first_name}</span>
+                                <span className="phone_number">{admin.phoneNumber}</span>
+                            </div>
+
+                            <div className="logout">
+                                <Tooltip title="Chiqish">
+                                    <Button onClick={handleLogout} variant="outlined">
+                                        <LogoutIcon />
+                                    </Button>
+                                </Tooltip>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

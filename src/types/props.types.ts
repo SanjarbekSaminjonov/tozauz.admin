@@ -12,6 +12,8 @@ export type DialogProps = {
     open: boolean, 
     title: string, 
     content: string,
+    cancelText: string,
+    confirmText: string,
     onConfirm: () => void, 
     onCancel: () => void 
 }

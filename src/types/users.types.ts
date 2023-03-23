@@ -1,3 +1,19 @@
+export type Admin = {
+    id: number
+    first_name: string | null
+    phoneNumber: string
+}
+
+export type AdminLoginData = {
+    phoneNumber: string
+    password: string
+}
+
+export type AdminFetchResponse = {
+    token: string
+    user: Admin
+}
+
 export type User = {
     id: number
     first_name: string | null

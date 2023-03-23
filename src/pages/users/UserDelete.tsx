@@ -38,8 +38,10 @@ const UserDelete = (props: any) => {
 
             <ConfirmDialog
                 open={open}
-                title="User delete"
+                title="Delete user"
                 content="Are you sure to delete this user?"
+                cancelText="Cancel"
+                confirmText="Delete"
                 onConfirm={handleDelete}
                 onCancel={hideDialog}
             />

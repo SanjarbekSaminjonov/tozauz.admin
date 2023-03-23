@@ -12,6 +12,8 @@ export default function ConfirmDialog(props: DialogProps) {
         open,
         title,
         content,
+        cancelText,
+        confirmText,
         onConfirm,
         onCancel
     } = props;
@@ -34,10 +36,10 @@ export default function ConfirmDialog(props: DialogProps) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={onCancel}>
-                    Bekor qilish
+                    {cancelText}
                 </Button>
-                <Button onClick={onConfirm} autoFocus>
-                    Tasdiqlash
+                <Button onClick={onConfirm} autoFocus style={{ color: 'red' }}>
+                    {confirmText}
                 </Button>
             </DialogActions>
         </Dialog>
