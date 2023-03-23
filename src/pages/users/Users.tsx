@@ -1,166 +1,52 @@
 import "./users.scss"
-
-import { User, UserFetchResponse } from "../../types/users"
-import { Column } from "../../types/table"
-import DataTable from "../../components/dataTable/DataTable"
+import { useEffect, useState } from "react"
 
 import { IconButton } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import DeleteIcon from '@mui/icons-material/Delete';
-
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import UserTableFilter from "../../components/filter/Filter"
-import { UserTableFilters } from "../../types/users"
+import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 
+import {
+    User,
+    UserFetchResponse,
+    UserTableFilters
+} from "../../types/users.types"
+import { Column } from "../../types/table.types"
 
-const rows: UserFetchResponse = JSON.parse(
-    `{
-        "count": 36,
-        "next": "http://tozauz-api.saminjonov.uz/api/v1/account/admin-register/?page=2",
-        "previous": null,
-        "results": [
-            {
-                "id": 36,
-                "first_name": "User1489855362",
-                "last_name": "Fake",
-                "phone_number": "1489855362",
-                "last_login": null,
-                "role": "POP",
-                "categories": [
-                    1
-                ],
-                "car_number": null,
-                "is_admin": false
-            },
-            {
-                "id": 35,
-                "first_name": "User2965390431",
-                "last_name": "Fake",
-                "phone_number": "2965390431",
-                "last_login": null,
-                "role": "POP",
-                "categories": [
-                    1
-                ],
-                "car_number": null,
-                "is_admin": false
-            },
-            {
-                "id": 34,
-                "first_name": "User4108806090",
-                "last_name": "Fake",
-                "phone_number": "4108806090",
-                "last_login": null,
-                "role": "POP",
-                "categories": [
-                    1
-                ],
-                "car_number": null,
-                "is_admin": false
-            },
-            {
-                "id": 33,
-                "first_name": "User3073043551",
-                "last_name": "Fake",
-                "phone_number": "3073043551",
-                "last_login": null,
-                "role": "POP",
-                "categories": [
-                    1
-                ],
-                "car_number": null,
-                "is_admin": false
-            },
-            {
-                "id": 32,
-                "first_name": "User2470884639",
-                "last_name": "Fake",
-                "phone_number": "2470884639",
-                "last_login": null,
-                "role": "POP",
-                "categories": [
-                    1
-                ],
-                "car_number": null,
-                "is_admin": false
-            },
-            {
-                "id": 31,
-                "first_name": "User3816093713",
-                "last_name": "Fake",
-                "phone_number": "3816093713",
-                "last_login": null,
-                "role": "POP",
-                "categories": [
-                    1
-                ],
-                "car_number": null,
-                "is_admin": false
-            },
-            {
-                "id": 30,
-                "first_name": "User3282216387",
-                "last_name": "Fake",
-                "phone_number": "3282216387",
-                "last_login": null,
-                "role": "POP",
-                "categories": [
-                    1
-                ],
-                "car_number": null,
-                "is_admin": false
-            },
-            {
-                "id": 29,
-                "first_name": "User578404732",
-                "last_name": "Fake",
-                "phone_number": "578404732",
-                "last_login": null,
-                "role": "POP",
-                "categories": [
-                    1
-                ],
-                "car_number": null,
-                "is_admin": false
-            },
-            {
-                "id": 28,
-                "first_name": "User3857777707",
-                "last_name": "Fake",
-                "phone_number": "3857777707",
-                "last_login": null,
-                "role": "POP",
-                "categories": [
-                    1
-                ],
-                "car_number": null,
-                "is_admin": false
-            },
-            {
-                "id": 27,
-                "first_name": "User4278853653",
-                "last_name": "Fake",
-                "phone_number": "4278853653",
-                "last_login": null,
-                "role": "POP",
-                "categories": [
-                    1
-                ],
-                "car_number": null,
-                "is_admin": false
-            }
-        ]
-    }`
-)
+import TableFilter from "../../components/filter/Filter"
+import DataTable from "../../components/dataTable/DataTable"
+import { getUsers } from "../../services/users.services";
+import UserDelete from "./UserDelete";
+
 
 const Users = () => {
 
-    const handleView = (row: User) => {
-        console.log(row)
-    }
+    const [load, setLoad] = useState(false)
 
-    const handleDelete = (row: User) => {
+    const [rows, setRows] = useState<UserFetchResponse>({
+        count: 0,
+        next: null,
+        previous: null,
+        results: []
+    } as UserFetchResponse)
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setLoading(true)
+        getUsers(
+            page + 1,
+            rowsPerPage
+        ).then((res) => {
+            setRows(res.data)
+            setLoading(false)
+        });
+        setLoad(false)
+    }, [page, rowsPerPage, load])
+
+    const handleView = (row: User) => {
         console.log(row)
     }
 
@@ -210,11 +96,13 @@ const Users = () => {
             minWidth: 130,
             align: 'right',
             format: (row: User) => {
-                <ul>
-                    {row.categories.map((category) => {
-                        return <li key={category}>{"fsdfs"}</li>
-                    })}
-                </ul>
+                return (
+                    <div>
+                        {row.categories.map((category) => {
+                            return <div key={category}>{"fsdfs"}</div>
+                        })}
+                    </div>
+                )
             }
         },
         {
@@ -227,17 +115,16 @@ const Users = () => {
             id: 'is_admin',
             label: 'Admin',
             minWidth: 50,
-            align: 'right',
             format: (row: User) => {
                 return row.is_admin
-                    ? <CheckCircleOutlineIcon />
-                    : <HighlightOffIcon />
+                    ? <CheckCircleOutlineIcon style={{ color: "green" }} />
+                    : <DoNotDisturbAltIcon style={{ color: "red" }} />
             }
         },
         {
             id: 'view',
             label: 'Ko\'rish',
-            minWidth: 50,
+            minWidth: 20,
             align: 'right',
             format: (row: User) => {
                 return (
@@ -253,17 +140,10 @@ const Users = () => {
         {
             id: 'delete',
             label: 'O\'chirish',
-            minWidth: 50,
+            minWidth: 20,
             align: 'right',
             format: (row: User) => {
-                return (
-                    <IconButton
-                        aria-label="delete"
-                        onClick={(view) => handleDelete(row)}
-                    >
-                        <DeleteIcon />
-                    </IconButton>
-                )
+                return <UserDelete setLoad={setLoad} row={row} />
             }
         },
     ];
@@ -272,16 +152,30 @@ const Users = () => {
         console.log(filter)
     }
 
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
+
     return (
         <div className="users">
             <div className="table">
                 <div className="tableFiler">
-                    <UserTableFilter onFilterChange={onFilterChange} />
+                    <TableFilter onFilterChange={onFilterChange} />
                 </div>
                 <DataTable
+                    isLoading={loading}
                     total={rows.count}
                     rows={rows.results}
                     columns={columns}
+                    page={page}
+                    rowsPerPage={rowsPerPage}
+                    handleChangePage={handleChangePage}
+                    handleChangeRowsPerPage={handleChangeRowsPerPage}
                 />
             </div>
         </div>

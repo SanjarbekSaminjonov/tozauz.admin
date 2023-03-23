@@ -1,6 +1,6 @@
 import "./widget.scss"
 import React from "react";
-import { WidgetProps } from "../../types/props";
+import { WidgetProps } from "../../types/props.types";
 
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";

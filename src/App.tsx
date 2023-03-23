@@ -15,27 +15,35 @@ import Users from "./pages/users/Users";
 import UserDetail from "./pages/users/UserDetail";
 import UserCreate from "./pages/users/UserCreate";
 
-function App() {
+function Layout({ children }: { children: React.ReactNode }) {
     return (
         <div className="layout">
             <Sidebar />
             <div className="container">
                 <Navbar />
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/">
-                            <Route index element={<Home />} />
-                            <Route path="login" element={<Login />} />
-                            <Route path="users">
-                                <Route index element={<Users />} />
-                                <Route path="new" element={<UserCreate />} />
-                                <Route path=":userId" element={<UserDetail />} />
-                            </Route>
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
+                {children}
             </div>
         </div>
+    );
+}
+
+
+function App() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/">
+                    <Route index element={<Layout><Home /></Layout>}
+                    />
+                    <Route path="login" element={<Layout><Login /></Layout>} />
+                    <Route path="users">
+                        <Route index element={<Layout><Users /></Layout>} />
+                        <Route path="new" element={<UserCreate />} />
+                        <Route path=":userId" element={<UserDetail />} />
+                    </Route>
+                </Route>
+            </Routes>
+        </BrowserRouter>
     );
 }
 

@@ -6,6 +6,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     return (
@@ -21,11 +22,15 @@ const Sidebar = () => {
                 <ul>
                     <li>
                         <DashboardIcon className="icon" />
-                        <span>Dashboard</span>
+                        <Link to="/">
+                            <span>Dashboard</span>
+                        </Link>
                     </li>
                     <li>
                         <PeopleIcon className="icon" />
-                        <span>Users</span>
+                        <Link to="/users">
+                            <span>Users</span>
+                        </Link>
                     </li>
                 </ul>
                 <p className="title">Services</p>

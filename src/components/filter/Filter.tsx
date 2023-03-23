@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { TextField, Checkbox, FormControlLabel } from '@mui/material';
 
-import { UserTableFilters } from "../../types/users";
+import { UserTableFilters } from "../../types/users.types";
 
 interface UserTableFilterProps {
     onFilterChange: (filters: UserTableFilters) => void;
 }
 
-const UserTableFilter: React.FC<UserTableFilterProps> = ({ onFilterChange }) => {
+const TableFilter: React.FC<UserTableFilterProps> = ({ onFilterChange }) => {
     const [filters, setFilters] = useState<UserTableFilters>({
         search: '',
         isAdmin: false,
@@ -64,4 +64,4 @@ const UserTableFilter: React.FC<UserTableFilterProps> = ({ onFilterChange }) => 
     );
 };
 
-export default UserTableFilter;
+export default TableFilter;
