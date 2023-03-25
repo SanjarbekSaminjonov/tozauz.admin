@@ -3,8 +3,6 @@ import { useEffect, useState } from "react"
 
 import { IconButton } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
-import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 
 import {
     User,
@@ -55,17 +53,17 @@ const Users = () => {
         {
             id: 'id',
             label: 'ID',
-            minWidth: 20
+            minWidth: 5
         },
         {
             id: 'first_name',
             label: 'Ism',
-            minWidth: 120
+            minWidth: 90
         },
         {
             id: 'last_name',
             label: 'Familiya',
-            minWidth: 120
+            minWidth: 90
         },
         {
             id: 'phone_number',
@@ -84,8 +82,8 @@ const Users = () => {
                         return "Aholi"
                     case "EMP":
                         return "Ishchi"
-                    case null:
-                        return " - "
+                    case 'ADMIN':
+                        return "Admin"
                     default:
                         return " - "
                 }
@@ -94,7 +92,7 @@ const Users = () => {
         {
             id: 'categories',
             label: 'Kategoriyalar',
-            minWidth: 130,
+            minWidth: 90,
             align: 'right',
             format: (row: User) => {
                 return (
@@ -109,23 +107,12 @@ const Users = () => {
         {
             id: 'car_number',
             label: 'Mashina raqami',
-            minWidth: 80,
+            minWidth: 50,
             align: 'right'
         },
         {
-            id: 'is_admin',
-            label: 'Admin',
-            minWidth: 50,
-            format: (row: User) => {
-                return row.is_admin
-                    ? <CheckCircleOutlineIcon style={{ color: "green" }} />
-                    : <DoNotDisturbAltIcon style={{ color: "red" }} />
-            }
-        },
-        {
             id: 'view',
-            label: 'Ko\'rish',
-            minWidth: 20,
+            label: '',
             align: 'right',
             format: (row: User) => {
                 return (
@@ -140,9 +127,7 @@ const Users = () => {
         },
         {
             id: 'delete',
-            label: 'O\'chirish',
-            minWidth: 20,
-            align: 'right',
+            label: '',
             format: (row: User) => {
                 return <UserDelete setLoad={setLoad} row={row} />
             }
