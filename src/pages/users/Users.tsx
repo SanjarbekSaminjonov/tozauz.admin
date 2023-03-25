@@ -1,21 +1,17 @@
 import "./users.scss"
 import { useEffect, useState } from "react"
 
-import { IconButton } from '@mui/material';
+import { IconButton, TextField } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-import {
-    User,
-    UserFetchResponse,
-    UserTableFilters
-} from "../../types/users.types"
+import { User, UserFetchResponse } from "../../types/users.types"
 import { Column } from "../../types/table.types"
 
-import TableFilter from "../../components/filter/Filter"
 import DataTable from "../../components/dataTable/DataTable"
 import { getUsers } from "../../services/users.services";
 import UserDelete from "./UserDelete";
 import UserCreate from "./UserCreate";
+import Select from 'react-select';
 
 
 const Users = () => {
@@ -134,10 +130,6 @@ const Users = () => {
         },
     ];
 
-    const onFilterChange = (filter: UserTableFilters) => {
-        console.log(filter)
-    }
-
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
@@ -150,8 +142,22 @@ const Users = () => {
     return (
         <div className="users">
             <div className="table">
-                <div className="tableFiler">
-                    <TableFilter onFilterChange={onFilterChange} />
+                <div className="tableHeader">
+                    <div className="tableFiler">
+                        <TextField id="outlined-search" label="Search field" type="search" />
+                        <Select
+                            options={[
+                                { value: 'POP', label: 'Aholi' },
+                                { value: 'EMP', label: 'Ishchi' },
+                                { value: 'ADMIN', label: 'Admin' },
+                            ]}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                            name="role"
+                            isSearchable={false}
+                            styles={{ control: base => ({ ...base, height: "56px" }) }}
+                        />
+                    </div>
                     <UserCreate
                         setLoad={setLoad}
                     />
