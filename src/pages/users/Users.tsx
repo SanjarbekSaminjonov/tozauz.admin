@@ -1,23 +1,24 @@
 import "./users.scss"
-import { useEffect, useState } from "react"
+import React, {useEffect, useState} from "react"
 
-import { IconButton, TextField } from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import {IconButton, TextField} from '@mui/material';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import Select from 'react-select';
 
-import { User, UserFetchResponse } from "../../types/users.types"
-import { Column } from "../../types/table.types"
-
+import {User, UserFetchResponse} from "../../types/users.types"
+import {Column} from "../../types/table.types"
 import DataTable from "../../components/dataTable/DataTable"
-import { getUsers } from "../../services/users.services";
+import {getUsers} from "../../services/users.services";
+import {categoriesServices} from "../../services/categories.services";
+
 import UserDelete from "./UserDelete";
 import UserCreate from "./UserCreate";
-import Select from 'react-select';
+import {CategoryObj} from "../../types/categories.types";
+import UserUpdate from "./UserUpdate";
 
 
 const Users = () => {
-
-    const [load, setLoad] = useState(false)
-
+    const [categories, setCategories] = useState<CategoryObj[]>([])
     const [rows, setRows] = useState<UserFetchResponse>({
         count: 0,
         next: null,
@@ -25,13 +26,21 @@ const Users = () => {
         results: []
     } as UserFetchResponse)
 
+    const [search, setSearch] = useState<string>('')
+    const [selectedRole, setSelectedRole] = useState<string>('')
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [loading, setLoading] = useState(false)
+    const [load, setLoad] = useState(false)
 
     useEffect(() => {
         setLoading(true)
+        categoriesServices.categories().then((res) => {
+            setCategories(res)
+        })
         getUsers(
+            search,
+            selectedRole,
             page + 1,
             rowsPerPage
         ).then((res) => {
@@ -39,9 +48,26 @@ const Users = () => {
             setLoading(false)
         });
         setLoad(false)
-    }, [page, rowsPerPage, load])
+    }, [search, selectedRole, page, rowsPerPage, load])
 
-    const handleView = (row: User) => {
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(event.target.value)
+    }
+
+    const handleRoleSelect = (event: any) => {
+        setSelectedRole(event.value)
+    }
+
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
+
+    const handleEdit = (row: User) => {
         console.log(row)
     }
 
@@ -93,9 +119,16 @@ const Users = () => {
             format: (row: User) => {
                 return (
                     <div>
-                        {row.categories.map((category) => {
-                            return <div key={category}>{"fsdfs"}</div>
-                        })}
+                        {
+                            row.categories.length > 0
+                                ? (row.categories.map((category) => {
+                                    return <div key={category}>{
+                                        categories.find((cat) => cat.id === category)?.name
+                                    }
+                                    </div>
+                                }))
+                                : 'Kiritilmagan'
+                        }
                     </div>
                 )
             }
@@ -104,20 +137,22 @@ const Users = () => {
             id: 'car_number',
             label: 'Mashina raqami',
             minWidth: 50,
-            align: 'right'
+            align: 'right',
+            format: (row: User) => {
+                return (
+                    <div>
+                        {row.car_number ? row.car_number : 'Kiritilmagan'}
+                    </div>
+                )
+            }
         },
         {
-            id: 'view',
+            id: 'edit',
             label: '',
             align: 'right',
             format: (row: User) => {
                 return (
-                    <IconButton
-                        aria-label="view"
-                        onClick={(view) => handleView(row)}
-                    >
-                        <VisibilityIcon />
-                    </IconButton>
+                    <UserUpdate user={row} setLoad={setLoad} />
                 )
             }
         },
@@ -125,37 +160,36 @@ const Users = () => {
             id: 'delete',
             label: '',
             format: (row: User) => {
-                return <UserDelete setLoad={setLoad} row={row} />
+                return <UserDelete setLoad={setLoad} row={row}/>
             }
         },
     ];
-
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
 
     return (
         <div className="users">
             <div className="table">
                 <div className="tableHeader">
                     <div className="tableFiler">
-                        <TextField id="outlined-search" label="Search field" type="search" />
+                        <TextField
+                            label="Qidirish"
+                            type="search"
+                            onChange={handleSearch}
+                        />
                         <Select
                             options={[
-                                { value: 'POP', label: 'Aholi' },
-                                { value: 'EMP', label: 'Ishchi' },
-                                { value: 'ADMIN', label: 'Admin' },
+                                {value: '', label: 'Barchasi'},
+                                {value: 'POP', label: 'Aholi'},
+                                {value: 'EMP', label: 'Ishchi'},
+                                {value: 'ADMIN', label: 'Admin'},
                             ]}
                             className="basic-multi-select"
                             classNamePrefix="select"
                             name="role"
                             isSearchable={false}
-                            styles={{ control: base => ({ ...base, height: "56px" }) }}
+                            styles={{control: base => ({...base, height: "56px"})}}
+                            onChange={(e: any) => {
+                                handleRoleSelect(e)
+                            }}
                         />
                     </div>
                     <UserCreate

@@ -1,6 +1,6 @@
 export type Admin = {
     id: number
-    first_name: string | null
+    firstName: string | null
     phoneNumber: string
 }
 

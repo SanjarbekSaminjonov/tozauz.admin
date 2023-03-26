@@ -6,7 +6,7 @@ const initialAdmin: Admin = localStorage.getItem('admin')
     ? JSON.parse(localStorage.getItem('admin') as string)
     : {
         id: 0,
-        first_name: null,
+        firstName: null,
         phoneNumber: '',
     };
 

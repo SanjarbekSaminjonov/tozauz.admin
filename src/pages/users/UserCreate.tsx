@@ -39,6 +39,8 @@ const UserCreate = (props: Props) => {
         }).catch((err) => {
             if (err.response.data.phone_number?.[0] === 'user with this phone number already exists.') {
                 setErrorMessage('Bunday telefon raqam bilan ro\'yhatdan foydalanuvchi mavjud')
+            } else if (err.response.data.car_number?.[0] === 'Ensure this field has no more than 10 characters.') {
+                setErrorMessage('Avto raqami 10 ta belgidan oshmasligi kerak')
             } else {
                 setErrorMessage('Xatolik yuz berdi')
             }

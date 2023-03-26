@@ -18,7 +18,7 @@ const Navbar = () => {
     const admin = authServices.admin;
 
     useEffect(() => {
-        if (authServices.isAuthenticated() === false) {
+        if (!authServices.isAuthenticated()) {
             navigate("/login");
         }
     }, [navigate])
@@ -49,7 +49,7 @@ const Navbar = () => {
                     <div className="item">
                         <div className="admin">
                             <div className="info">
-                                <span className="name">{admin.first_name}</span>
+                                <span className="name">{admin.firstName}</span>
                                 <span className="phone_number">{admin.phoneNumber}</span>
                             </div>
 
