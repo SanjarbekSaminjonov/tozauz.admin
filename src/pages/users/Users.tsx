@@ -1,19 +1,17 @@
 import "./users.scss"
 import React, {useEffect, useState} from "react"
 
-import {IconButton, TextField} from '@mui/material';
-import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import {TextField} from '@mui/material';
 import Select from 'react-select';
 
 import {User, UserFetchResponse} from "../../types/users.types"
+import {CategoryObj} from "../../types/categories.types";
 import {Column} from "../../types/table.types"
-import DataTable from "../../components/dataTable/DataTable"
-import {getUsers} from "../../services/users.services";
 import {categoriesServices} from "../../services/categories.services";
-
+import {getUsers} from "../../services/users.services";
+import DataTable from "../../components/dataTable/DataTable"
 import UserDelete from "./UserDelete";
 import UserCreate from "./UserCreate";
-import {CategoryObj} from "../../types/categories.types";
 import UserUpdate from "./UserUpdate";
 
 
@@ -66,10 +64,6 @@ const Users = () => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
-    const handleEdit = (row: User) => {
-        console.log(row)
-    }
 
     const columns: readonly Column[] = [
         {
@@ -173,6 +167,7 @@ const Users = () => {
                         <TextField
                             label="Qidirish"
                             type="search"
+                            sx={{backgroundColor: "white", borderRadius: "5px", width: "300px"}}
                             onChange={handleSearch}
                         />
                         <Select
@@ -182,11 +177,12 @@ const Users = () => {
                                 {value: 'EMP', label: 'Ishchi'},
                                 {value: 'ADMIN', label: 'Admin'},
                             ]}
+                            defaultValue={{value: '', label: 'Barchasi'}}
                             className="basic-multi-select"
                             classNamePrefix="select"
                             name="role"
                             isSearchable={false}
-                            styles={{control: base => ({...base, height: "56px"})}}
+                            styles={{control: base => ({...base, height: "56px", width: "150px"})}}
                             onChange={(e: any) => {
                                 handleRoleSelect(e)
                             }}
