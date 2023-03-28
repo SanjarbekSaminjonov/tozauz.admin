@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {IconButton} from "@mui/material";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 
 import {User} from "../../types/users.types";
 import {updateUser} from "../../services/users.services";
 import FullScreenDialog from '../../components/FullScreenDialog'
-import UserForm from "./UserForm";
+import UserEditForm from "./UserEditForm";
 import Toast from "../../components/Toast";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -62,7 +62,7 @@ const UserUpdate = (props: Props) => {
                 open={open}
                 handleClose={handleClose}
             >
-                <UserForm user={user} onSubmit={onSubmit}/>
+                <UserEditForm user={user} onSubmit={onSubmit}/>
                 <Toast
                     severity="error"
                     message={errorMessage}

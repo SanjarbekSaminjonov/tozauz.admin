@@ -19,6 +19,12 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Dashboard"/>
         </ListItemButton>
+        <ListItemButton component={Link} to={"/categories"}>
+            <ListItemIcon>
+                <LayersIcon />
+            </ListItemIcon>
+            <ListItemText primary="Kategoriyalar" />
+        </ListItemButton>
         <ListItemButton component={Link} to={"/users"}>
             <ListItemIcon>
                 <PeopleIcon/>
@@ -30,12 +36,6 @@ export const mainListItems = (
                 <BarChartIcon/>
             </ListItemIcon>
             <ListItemText primary="Reports"/>
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <LayersIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Integrations"/>
         </ListItemButton>
     </React.Fragment>
 );

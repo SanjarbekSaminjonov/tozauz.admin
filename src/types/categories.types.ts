@@ -1,6 +1,6 @@
 export type CategoryObj = {
     id: number
     name: string
-    count: number
+    count_user: number
     summa: number
 }

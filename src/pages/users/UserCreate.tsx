@@ -3,7 +3,7 @@ import FullScreenDialog from '../../components/FullScreenDialog'
 import { Button } from '@mui/material';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
-import UserForm from './UserForm'
+import UserForm from './UserCreationForm'
 import { User } from '../../types/users.types';
 
 import { createUser } from '../../services/users.services';

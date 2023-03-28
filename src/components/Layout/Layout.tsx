@@ -75,7 +75,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-function DashboardContent({ children }: { children: React.ReactNode }) {
+function DashboardContent({ children, title }: { children: React.ReactNode, title: string }) {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -122,7 +122,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
                         noWrap
                         sx={{ flexGrow: 1 }}
                     >
-                        Dashboard
+                        {title}
                     </Typography>
                     {/* <IconButton color="inherit"> */}
                     {/* <Badge badgeContent={4} color="secondary">
@@ -185,6 +185,6 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
     );
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-    return <DashboardContent> {children} </DashboardContent>;
+export default function Layout({ children, title }: { children: React.ReactNode, title: string }) {
+    return <DashboardContent title={title}> {children} </DashboardContent>;
 }

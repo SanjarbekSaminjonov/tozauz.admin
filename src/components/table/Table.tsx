@@ -59,7 +59,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
     const [open, setOpen] = React.useState(false);
 
     return (
-        <React.Fragment>
+        <Table>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell>
                     <IconButton
@@ -113,7 +113,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                     </Collapse>
                 </TableCell>
             </TableRow>
-        </React.Fragment>
+        </Table>
     );
 }
 
