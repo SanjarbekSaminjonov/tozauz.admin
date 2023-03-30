@@ -16,11 +16,10 @@ import { User } from '../../types/users.types';
 
 interface Props {
     onSubmit: (user: User) => void
-    user?: User
 }
 
 export default function UserForm(props: Props) {
-    const { onSubmit, user } = props;
+    const { onSubmit } = props;
 
     const [open, setOpen] = React.useState(false);
     const [categories, setCategories] = React.useState([] as CategoryObj[]);
