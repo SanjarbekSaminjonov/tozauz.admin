@@ -1,7 +1,5 @@
 import "./App.scss"
 
-import React from "react";
-
 import {
     BrowserRouter,
     Routes,
@@ -13,6 +11,7 @@ import Login from "./pages/login/Login";
 import Users from "./pages/users/Users";
 import Layout from "./components/Layout/Layout";
 import Categories from "./pages/categories/Categories";
+import QrCode from "./pages/qrcode/QrCode";
 
 
 function App() {
@@ -42,6 +41,14 @@ function App() {
                     element={
                         <Layout title="Kategoriyalar">
                             <Categories />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="qrcode"
+                    element={
+                        <Layout title="Qr Kodlar">
+                            <QrCode />
                         </Layout>
                     }
                 />

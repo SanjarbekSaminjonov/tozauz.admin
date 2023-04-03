@@ -30,7 +30,7 @@ export default function DataTable(props: any) {
         <>
             <Loader isLoading={isLoading} />
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                <TableContainer sx={{ maxHeight: 'calc(100vh - 200px)' }}>
+                <TableContainer sx={{ maxHeight: 'calc(100vh - 240px)' }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -61,20 +61,23 @@ export default function DataTable(props: any) {
                                     </TableRow>
                                 );
                             })}
-                            <TableRow>
-                                <TablePagination
-                                    rowsPerPageOptions={[5, 10, 25, 50]}
-                                    count={total}
-                                    rowsPerPage={rowsPerPage}
-                                    page={page}
-                                    onPageChange={handleChangePage}
-                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                />
-                            </TableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>
-                
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25, 50]}
+                                count={total}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                        </TableRow>
+                    </TableBody>
+                </Table>
             </Paper>
         </>
     );

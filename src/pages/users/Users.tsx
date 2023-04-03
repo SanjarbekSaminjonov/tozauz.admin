@@ -26,7 +26,7 @@ const Users = () => {
     const [search, setSearch] = useState<string>("");
     const [selectedRole, setSelectedRole] = useState<string>("");
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const [loading, setLoading] = useState(false);
     const [load, setLoad] = useState(false);
 
@@ -66,6 +66,7 @@ const Users = () => {
             id: "id",
             label: "ID",
             minWidth: 5,
+            align: "right",
         },
         {
             id: "first_name",

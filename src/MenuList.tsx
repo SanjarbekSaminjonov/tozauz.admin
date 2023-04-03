@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -10,14 +10,15 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { QrCode } from '@mui/icons-material';
 
 export const mainListItems = (
     <React.Fragment>
         <ListItemButton component={Link} to={"/"}>
             <ListItemIcon>
-                <DashboardIcon/>
+                <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="Dashboard"/>
+            <ListItemText primary="Dashboard" />
         </ListItemButton>
         <ListItemButton component={Link} to={"/categories"}>
             <ListItemIcon>
@@ -27,15 +28,21 @@ export const mainListItems = (
         </ListItemButton>
         <ListItemButton component={Link} to={"/users"}>
             <ListItemIcon>
-                <PeopleIcon/>
+                <PeopleIcon />
             </ListItemIcon>
-            <ListItemText primary="Foydalanuvchilar"/>
+            <ListItemText primary="Foydalanuvchilar" />
+        </ListItemButton>
+        <ListItemButton component={Link} to={"/qrcode"}>
+            <ListItemIcon>
+                <QrCode />
+            </ListItemIcon>
+            <ListItemText primary="Qr kodlar" />
         </ListItemButton>
         <ListItemButton>
             <ListItemIcon>
-                <BarChartIcon/>
+                <BarChartIcon />
             </ListItemIcon>
-            <ListItemText primary="Reports"/>
+            <ListItemText primary="Reports" />
         </ListItemButton>
     </React.Fragment>
 );
@@ -47,21 +54,21 @@ export const secondaryListItems = (
         </ListSubheader>
         <ListItemButton>
             <ListItemIcon>
-                <AssignmentIcon/>
+                <AssignmentIcon />
             </ListItemIcon>
-            <ListItemText primary="Current month"/>
+            <ListItemText primary="Current month" />
         </ListItemButton>
         <ListItemButton>
             <ListItemIcon>
-                <AssignmentIcon/>
+                <AssignmentIcon />
             </ListItemIcon>
-            <ListItemText primary="Last quarter"/>
+            <ListItemText primary="Last quarter" />
         </ListItemButton>
         <ListItemButton>
             <ListItemIcon>
-                <AssignmentIcon/>
+                <AssignmentIcon />
             </ListItemIcon>
-            <ListItemText primary="Year-end sale"/>
+            <ListItemText primary="Year-end sale" />
         </ListItemButton>
     </React.Fragment>
 );
