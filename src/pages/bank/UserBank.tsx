@@ -9,9 +9,13 @@ import UserEarnings from "./UserEarnings";
 import UserPayouts from "./UserPayOuts";
 import PayOutCreate from "./PayOutCreate";
 
+
 const UserBank = () => {
     const {userId} = useParams<{ userId: string }>();
     const [userBank, setUserBank] = React.useState<any>(undefined)
+
+    const [earningSumma, setEarningSumma] = React.useState(0)
+    const [payOutSumma, setPayOutSumma] = React.useState(0)
 
     const [reloadPayOut, setReloadPayOut] = React.useState(1)
 
@@ -67,7 +71,8 @@ const UserBank = () => {
                                         <span className="divider"></span>
 
                                         <div className="item">
-                                            <PayOutCreate reload={reloadPayOut} setLoadPayOut={setReloadPayOut} userId={userId}/>
+                                            <PayOutCreate reload={reloadPayOut} setLoadPayOut={setReloadPayOut}
+                                                          userId={userId}/>
                                         </div>
 
                                         <div></div>
@@ -75,15 +80,19 @@ const UserBank = () => {
                                 </Paper>
                                 <div className="body">
                                     <div className="tableContainer left">
-                                        <h2 className="title green">Kirimlar (Ishlab topilgan)</h2>
+                                        <h2 className="title green">
+                                            Kirimlar (Ishlab topilgan) <br/> {earningSumma} so'm
+                                        </h2>
                                         <Paper elevation={3}>
-                                            <UserEarnings userId={userId}/>
+                                            <UserEarnings userId={userId} setEarningSumma={setEarningSumma}/>
                                         </Paper>
                                     </div>
                                     <div className="tableContainer right">
-                                        <h2 className="title red">Chiqimlar (Yechib olingan)</h2>
+                                        <h2 className="title red">
+                                            Chiqimlar (Yechib olingan) <br/> {payOutSumma} so'm
+                                        </h2>
                                         <Paper elevation={3}>
-                                            <UserPayouts reload={reloadPayOut} userId={userId}/>
+                                            <UserPayouts reload={reloadPayOut} userId={userId} setPayOutSumma={setPayOutSumma}/>
                                         </Paper>
                                     </div>
                                 </div>

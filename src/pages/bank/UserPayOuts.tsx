@@ -7,7 +7,7 @@ import {payOutServices} from "../../services/payOutServices";
 import {formatDateTime} from "../../services/utils";
 
 const UserPayouts = (props: any) => {
-    const {userId, reload} = props;
+    const {userId, reload, setPayOutSumma} = props;
     const [rows, setRows] = useState<any>(undefined);
 
     const [pageIndex, setPageIndex] = useState(0);
@@ -19,9 +19,10 @@ const UserPayouts = (props: any) => {
         setLoading(true)
         payOutServices.getUserPayOuts(userId, pageIndex + 1, pageSize).then((res) => {
             setRows(res.data)
+            setPayOutSumma(res.data.amount__sum)
             setLoading(false)
         })
-    }, [userId, pageIndex, pageSize, reload])
+    }, [userId, pageIndex, pageSize, reload, setPayOutSumma])
 
 
     const handleChangePage = (event: unknown, newPage: number) => {
@@ -43,6 +44,9 @@ const UserPayouts = (props: any) => {
         {
             id: "amount",
             label: "Miqdori",
+            format: (row: any) => {
+                return row.amount + " so'm";
+            }
         },
         {
             id: "created_at",

@@ -7,7 +7,7 @@ import {earningServices} from "../../services/earningServices";
 import {formatDateTime} from "../../services/utils";
 
 const UserEarnings = (props: any) => {
-    const {userId} = props;
+    const {userId, setEarningSumma} = props;
     const [categories, setCategories] = useState<CategoryObj[]>([]);
     const [rows, setRows] = useState<any>(undefined);
 
@@ -26,9 +26,10 @@ const UserEarnings = (props: any) => {
         setLoading(true)
         earningServices.getUserEarnings(userId, pageIndex + 1, pageSize).then((res) => {
             setRows(res.data)
+            setEarningSumma(res.data.amount__sum)
             setLoading(false)
         })
-    }, [userId, pageIndex, pageSize])
+    }, [userId, pageIndex, pageSize, setEarningSumma])
 
     const columns: readonly Column[] = [
         {
@@ -38,6 +39,9 @@ const UserEarnings = (props: any) => {
         {
             id: "amount",
             label: "Miqdori",
+            format: (row: any) => {
+                return row.amount + " so'm";
+            }
         },
         {
             id: "created_at",
