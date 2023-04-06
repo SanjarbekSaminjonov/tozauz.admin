@@ -12,6 +12,7 @@ import Users from "./pages/users/Users";
 import Layout from "./components/Layout/Layout";
 import Categories from "./pages/categories/Categories";
 import QrCode from "./pages/qrcode/QrCode";
+import UserBank from "./pages/bank/UserBank";
 
 
 function App() {
@@ -33,6 +34,14 @@ function App() {
                     element={
                         <Layout title="Foydalanuvchilar">
                             <Users />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="user-bank/:userId"
+                    element={
+                        <Layout title="Foydalanuvchi hisob kitoblari">
+                            <UserBank />
                         </Layout>
                     }
                 />

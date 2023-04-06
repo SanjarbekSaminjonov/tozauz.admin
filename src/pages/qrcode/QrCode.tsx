@@ -40,8 +40,8 @@ const QrCode = () => {
     })
 
     const qrCodeTypes = [
-        { value: 'box', label: 'Qutilar uchun' },
-        { value: 'packet', label: 'Salafan idishlar uchun' },
+        { value: 'box', label: 'Eko Paket' },
+        { value: 'packet', label: 'Bir martalik' },
     ]
 
     const onSubmit = (e: any) => {
@@ -78,7 +78,7 @@ const QrCode = () => {
                 `qr-codes-${form.type}-${categoryOptions.find((item) => item.value = Number(form.category))?.label}-${form.quantity}.txt`
             )
             setIsLoading(false)
-        }).catch(err => {
+        }).catch(() => {
             alert('Kutilmagan xatolik yuz berdi')
             setIsLoading(false)
         })

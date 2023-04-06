@@ -179,7 +179,9 @@ function DashboardContent({ children, title }: { children: React.ReactNode, titl
                 }}
             >
                 <Toolbar />
-                {children}
+                <div className="content">
+                    {children}
+                </div>
             </Box>
         </Box>
     );

@@ -1,18 +1,20 @@
 import "./users.scss";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
-import { Chip, Stack, TextField } from "@mui/material";
+import {Chip, IconButton, Stack, TextField} from "@mui/material";
 import Select from "react-select";
 
-import { User, UserFetchResponse } from "../../types/users.types";
-import { CategoryObj } from "../../types/categories.types";
-import { Column } from "../../types/table.types";
-import { categoriesServices } from "../../services/categories.services";
-import { getUsers } from "../../services/users.services";
+import {User, UserFetchResponse} from "../../types/users.types";
+import {CategoryObj} from "../../types/categories.types";
+import {Column} from "../../types/table.types";
+import {categoriesServices} from "../../services/categories.services";
+import {getUsers} from "../../services/users.services";
 import DataTable from "../../components/dataTable/DataTable";
 import UserDelete from "./UserDelete";
 import UserCreate from "./UserCreate";
 import UserUpdate from "./UserUpdate";
+import {Link} from "react-router-dom";
+import PaidIcon from '@mui/icons-material/Paid';
 
 const Users = () => {
     const [categories, setCategories] = useState<CategoryObj[]>([]);
@@ -63,12 +65,6 @@ const Users = () => {
 
     const columns: readonly Column[] = [
         {
-            id: "id",
-            label: "ID",
-            minWidth: 5,
-            align: "right",
-        },
-        {
             id: "first_name",
             label: "Ism",
             minWidth: 90,
@@ -105,7 +101,7 @@ const Users = () => {
         {
             id: "categories",
             label: "Kategoriyalar",
-            minWidth: 90,
+            minWidth: 100,
             align: "right",
             format: (row: User) => {
                 return (
@@ -148,18 +144,31 @@ const Users = () => {
             },
         },
         {
-            id: "edit",
+            id: "bank",
             label: "",
             align: "right",
             format: (row: User) => {
-                return <UserUpdate user={row} setLoad={setLoad} />;
+                return <Link to={`/user-bank/${row.id}`}>
+                    <IconButton>
+                        <PaidIcon/>
+                    </IconButton>
+                </Link>;
+            },
+        },
+        {
+            id: "edit",
+            label: "",
+            align: "center",
+            format: (row: User) => {
+                return <UserUpdate user={row} setLoad={setLoad}/>;
             },
         },
         {
             id: "delete",
             label: "",
+            align: "left",
             format: (row: User) => {
-                return <UserDelete setLoad={setLoad} row={row} />;
+                return <UserDelete setLoad={setLoad} row={row}/>;
             },
         },
     ];
@@ -181,12 +190,12 @@ const Users = () => {
                         />
                         <Select
                             options={[
-                                { value: "", label: "Barchasi" },
-                                { value: "POP", label: "Aholi" },
-                                { value: "EMP", label: "Ishchi" },
-                                { value: "ADMIN", label: "Admin" },
+                                {value: "", label: "Barchasi"},
+                                {value: "POP", label: "Aholi"},
+                                {value: "EMP", label: "Ishchi"},
+                                {value: "ADMIN", label: "Admin"},
                             ]}
-                            defaultValue={{ value: "", label: "Barchasi" }}
+                            defaultValue={{value: "", label: "Barchasi"}}
                             className="basic-multi-select"
                             classNamePrefix="select"
                             name="role"
@@ -203,7 +212,7 @@ const Users = () => {
                             }}
                         />
                     </div>
-                    <UserCreate setLoad={setLoad} />
+                    <UserCreate setLoad={setLoad}/>
                 </div>
                 <DataTable
                     isLoading={loading}

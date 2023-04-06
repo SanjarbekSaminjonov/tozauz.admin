@@ -18,6 +18,11 @@ export const getUsers = async (
 }
 
 
+export const getUser = async (id: Number) => {
+    return await requests('GET', `account/admin-register/${id}/`);
+}
+
+
 export const createUser = async (data: User) => {
     return await requests('POST', 'account/admin-register/', data);
 }
