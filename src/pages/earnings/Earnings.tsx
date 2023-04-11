@@ -18,8 +18,21 @@ import Tooltip from "@mui/material/Tooltip";
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import Select from "react-select";
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
 const Earnings = () => {
+
+    const startDateDefault = () => {
+        let date = new Date();
+        date.setMonth(date.getMonth() - 1);
+        return date.toISOString().slice(0, 10);
+    }
+
+    const endDateDefault = () => {
+        let date = new Date();
+        return date.toISOString().slice(0, 10);
+    }
+
     const [categories, setCategories] = useState<CategoryObj[]>([]);
     const [rows, setRows] = useState<any>([]);
 
@@ -27,8 +40,9 @@ const Earnings = () => {
     const [pageSize, setPageSize] = useState(5);
     const [selectedCategory, setSelectedCategory] = useState<any>('');
     const [search, setSearch] = useState<any>('');
-    const [startDate, setStartDate] = useState<any>('');
-    const [endDate, setEndDate] = useState<any>('');
+    const [startDate, setStartDate] = useState<any>(startDateDefault());
+    const [endDate, setEndDate] = useState<any>(endDateDefault());
+    const [dataRangeValue, setDataRangeValue] = useState<any>({value: "1month", label: "Oxirgi oy"});
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -125,6 +139,7 @@ const Earnings = () => {
         }
     ]
 
+
     const handleSearch = (e: any) => {
         setSearch(e.target.value);
     }
@@ -150,6 +165,28 @@ const Earnings = () => {
 
     const handleEndDate = (e: any) => {
         setEndDate(e.target.value);
+    }
+
+    const handleChangeDataRange = (e: any) => {
+        if (e.value === "all") {
+            setStartDate('');
+            setEndDate('');
+        }
+        if (e.value === "today") {
+            setStartDate(endDateDefault());
+            setEndDate(endDateDefault());
+        }
+        if (e.value === "1month") {
+            setStartDate(startDateDefault());
+            setEndDate(endDateDefault());
+        }
+        if (e.value === "3month") {
+            let date = new Date();
+            date.setMonth(date.getMonth() - 3);
+            setStartDate(date.toISOString().slice(0, 10));
+            setEndDate(endDateDefault());
+        }
+        setDataRangeValue(e);
     }
 
     return (
@@ -180,7 +217,6 @@ const Earnings = () => {
                             defaultValue={{value: "", label: "Barchasi"}}
                             className="basic-multi-select"
                             classNamePrefix="select"
-                            name="role"
                             isSearchable={false}
                             onChange={(e: any) => {
                                 handleCategorySelect(e);
@@ -188,6 +224,7 @@ const Earnings = () => {
                         />
                     </div>
                     <div className="dateFilter">
+
                         <TextField
                             type="date"
                             sx={{
@@ -196,8 +233,9 @@ const Earnings = () => {
                             }}
                             size={"small"}
                             onChange={handleStartDate}
+                            value={startDate}
                         />
-                        <div> dan - gacha</div>
+                        <SwapHorizIcon />
                         <TextField
                             type="date"
                             sx={{
@@ -206,6 +244,24 @@ const Earnings = () => {
                             }}
                             size={"small"}
                             onChange={handleEndDate}
+                            value={endDate}
+                        />
+                        <Select
+                            options={
+                                [
+                                    {value: "all", label: "Barchasi"},
+                                    {value: "today", label: "Bugun"},
+                                    {value: "1month", label: "Oxirgi oy"},
+                                    {value: "3month", label: "Oxirgi 3 oy"},
+                                ]
+                            }
+                            value={dataRangeValue}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                            isSearchable={false}
+                            onChange={(e: any) => {
+                                handleChangeDataRange(e);
+                            }}
                         />
                     </div>
                 </div>

@@ -16,7 +16,7 @@ export const formatDateTime = (date: string) => {
 }
 
 
-export function numberWithCommas(x: number | null): string {
-    if (x === null) return "0";
+export function numberWithCommas(x: number | null | undefined): string {
+    if (x === null || x === undefined) return "0";
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
