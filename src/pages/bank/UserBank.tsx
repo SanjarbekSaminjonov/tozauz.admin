@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import UserEarnings from "./UserEarnings";
 import UserPayouts from "./UserPayOuts";
 import PayOutCreate from "./PayOutCreate";
+import {numberWithCommas} from "../../services/utils";
 
 
 const UserBank = () => {
@@ -65,7 +66,7 @@ const UserBank = () => {
 
                                         <div className="item">
                                             <div className="label">Hisob mablag'i</div>
-                                            <div className="value">{userBank.capital}</div>
+                                            <div className="value">{numberWithCommas(userBank.capital)}</div>
                                         </div>
 
                                         <span className="divider"></span>
@@ -81,7 +82,7 @@ const UserBank = () => {
                                 <div className="body">
                                     <div className="tableContainer left">
                                         <h2 className="title green">
-                                            Kirimlar (Ishlab topilgan) <br/> {earningSumma} so'm
+                                            Kirimlar (Ishlab topilgan) <br/> {numberWithCommas(earningSumma)} so'm
                                         </h2>
                                         <Paper elevation={3}>
                                             <UserEarnings userId={userId} setEarningSumma={setEarningSumma}/>
@@ -89,7 +90,7 @@ const UserBank = () => {
                                     </div>
                                     <div className="tableContainer right">
                                         <h2 className="title red">
-                                            Chiqimlar (Yechib olingan) <br/> {payOutSumma} so'm
+                                            Chiqimlar (Yechib olingan) <br/> {numberWithCommas(payOutSumma)} so'm
                                         </h2>
                                         <Paper elevation={3}>
                                             <UserPayouts reload={reloadPayOut} userId={userId} setPayOutSumma={setPayOutSumma}/>

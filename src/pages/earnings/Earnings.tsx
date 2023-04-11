@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import Paper from "@mui/material/Paper";
 import DataTable from "../../components/dataTable/DataTable";
 import {Column} from "../../types/table.types";
-import {formatDateTime} from "../../services/utils";
+import {formatDateTime, numberWithCommas} from "../../services/utils";
 import {categoriesServices} from "../../services/categories.services";
 import {CategoryObj} from "../../types/categories.types";
 import {Link} from "react-router-dom";
@@ -65,7 +65,8 @@ const Earnings = () => {
         {
             id: 'amount',
             label: 'Summa',
-            align: 'center'
+            align: 'center',
+            format: (row: any) => numberWithCommas(row.amount)
         },
         {
             id: 'tarrif',
@@ -153,7 +154,7 @@ const Earnings = () => {
 
     return (
         <div className="earnings">
-            <h2 style={{marginBottom: "10px"}}>Ishlangan mablag' ({rows.amount__sum || 0} so'm)</h2>
+            <h2 style={{marginBottom: "10px"}}>Ishlangan mablag' ({numberWithCommas(rows.amount__sum)} so'm)</h2>
             <Paper>
                 <div className={"tableHeader"}>
                     <div className="tableFilter">

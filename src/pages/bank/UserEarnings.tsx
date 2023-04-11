@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {CategoryObj} from "../../types/categories.types";
 import {categoriesServices} from "../../services/categories.services";
 import {earningServices} from "../../services/earningServices";
-import {formatDateTime} from "../../services/utils";
+import {formatDateTime, numberWithCommas} from "../../services/utils";
 
 const UserEarnings = (props: any) => {
     const {userId, setEarningSumma} = props;
@@ -40,7 +40,7 @@ const UserEarnings = (props: any) => {
             id: "amount",
             label: "Miqdori",
             format: (row: any) => {
-                return row.amount + " so'm";
+                return numberWithCommas(row.amount) + " so'm";
             }
         },
         {

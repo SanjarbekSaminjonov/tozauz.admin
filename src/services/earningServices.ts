@@ -22,8 +22,11 @@ export const earningServices = {
         if (search) {
             url += `&search=${search}`
         }
-        if (startDate && endDate) {
-            url += `&start_date=${startDate}&end_date=${endDate}`
+        if (startDate) {
+            url += `&start_date=${startDate}`
+        }
+        if (endDate) {
+            url += `&end_date=${endDate}`
         }
         return requests('get', url)
     },

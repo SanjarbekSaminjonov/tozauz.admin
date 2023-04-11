@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 
 import {payOutServices} from "../../services/payOutServices";
 
-import {formatDateTime} from "../../services/utils";
+import {formatDateTime, numberWithCommas} from "../../services/utils";
 
 const UserPayouts = (props: any) => {
     const {userId, reload, setPayOutSumma} = props;
@@ -45,7 +45,7 @@ const UserPayouts = (props: any) => {
             id: "amount",
             label: "Miqdori",
             format: (row: any) => {
-                return row.amount + " so'm";
+                return numberWithCommas(row.amount) + " so'm";
             }
         },
         {
