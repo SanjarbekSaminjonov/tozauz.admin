@@ -13,6 +13,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { QrCode } from '@mui/icons-material';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 
 export const mainListItems = (
     <React.Fragment>
@@ -39,6 +40,12 @@ export const mainListItems = (
                 <QrCode />
             </ListItemIcon>
             <ListItemText primary="Qr kodlar" />
+        </ListItemButton>
+        <ListItemButton component={Link} to={"/packets"}>
+            <ListItemIcon>
+                <LocalMallIcon />
+            </ListItemIcon>
+            <ListItemText primary="Paketlar" />
         </ListItemButton>
         <ListItemButton component={Link} to={"/earnings"}>
             <ListItemIcon>
