@@ -184,8 +184,8 @@ const Users = () => {
                             sx={{
                                 backgroundColor: "white",
                                 borderRadius: "5px",
-                                width: "300px",
                             }}
+                            size={"small"}
                             onChange={handleSearch}
                         />
                         <Select
@@ -200,13 +200,6 @@ const Users = () => {
                             classNamePrefix="select"
                             name="role"
                             isSearchable={false}
-                            styles={{
-                                control: (base) => ({
-                                    ...base,
-                                    height: "56px",
-                                    width: "150px",
-                                }),
-                            }}
                             onChange={(e: any) => {
                                 handleRoleSelect(e);
                             }}

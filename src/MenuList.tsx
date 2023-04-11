@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
@@ -38,11 +40,17 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Qr kodlar" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to={"/earnings"}>
+            <ListItemIcon>
+                <LocalAtmIcon />
+            </ListItemIcon>
+            <ListItemText primary="Pul ishlash" />
+        </ListItemButton>
+        <ListItemButton component={Link} to={"/"}>
             <ListItemIcon>
                 <BarChartIcon />
             </ListItemIcon>
-            <ListItemText primary="Reports" />
+            <ListItemText primary="----------" />
         </ListItemButton>
     </React.Fragment>
 );

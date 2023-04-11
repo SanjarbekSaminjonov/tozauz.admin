@@ -11,21 +11,23 @@ import Login from "./pages/login/Login";
 import Users from "./pages/users/Users";
 import Layout from "./components/Layout/Layout";
 import Categories from "./pages/categories/Categories";
-import QrCode from "./pages/qrcode/QrCode";
+import QrCodeCreate from "./pages/qrcode/QrCodeCreate";
 import UserBank from "./pages/bank/UserBank";
+import QrCodeList from "./pages/qrcode/QrCodeList";
+import Earnings from "./pages/earnings/Earnings";
 
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="login" element={<Login />} />
+                <Route path="login" element={<Login/>}/>
 
                 <Route
                     path="/"
                     element={
                         <Layout title="Bosh sahifa">
-                            <Home />
+                            <Home/>
                         </Layout>
                     }
                 />
@@ -33,7 +35,7 @@ function App() {
                     path="users"
                     element={
                         <Layout title="Foydalanuvchilar">
-                            <Users />
+                            <Users/>
                         </Layout>
                     }
                 />
@@ -41,7 +43,7 @@ function App() {
                     path="user-bank/:userId"
                     element={
                         <Layout title="Foydalanuvchi hisob kitoblari">
-                            <UserBank />
+                            <UserBank/>
                         </Layout>
                     }
                 />
@@ -49,7 +51,7 @@ function App() {
                     path="categories"
                     element={
                         <Layout title="Kategoriyalar">
-                            <Categories />
+                            <Categories/>
                         </Layout>
                     }
                 />
@@ -57,7 +59,23 @@ function App() {
                     path="qrcode"
                     element={
                         <Layout title="Qr Kodlar">
-                            <QrCode />
+                            <QrCodeList/>
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="qrcode/create"
+                    element={
+                        <Layout title="Qr Kodlar">
+                            <QrCodeCreate/>
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="earnings"
+                    element={
+                        <Layout title="Ishlab topilgan pullar">
+                            <Earnings/>
                         </Layout>
                     }
                 />
