@@ -38,8 +38,9 @@ export default function Login() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         setIsLoading(true);
+        let phoneNumber = data.get('phoneNumber') as string
         authServices.login({
-            phoneNumber: data.get('phoneNumber') as string,
+            phoneNumber: phoneNumber.replace(/ /g, ''),
             password: data.get('password') as string,
         } as AdminLoginData).then((res) => {
             authServices.setUser(res.data);
