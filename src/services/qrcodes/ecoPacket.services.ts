@@ -5,6 +5,18 @@ export const ecoPacketServices = {
     get: (
         pageIndex: number,
         pageSize: number,
+        selectedCategory: string,
         search: string,
-        ) => requests('GET', 'ecopacket/ecopacket-qr-code/'),
+        ) => {
+        let url = `ecopacket/ecopacket-qr-code/?page=${pageIndex}&page_size=${pageSize}`
+
+        if (selectedCategory) {
+            url += `&category=${selectedCategory}`
+        }
+        if (search) {
+            url += `&search=${search}`
+        }
+
+        return requests('GET', url)
+    },
 }

@@ -13,8 +13,8 @@ import Layout from "./components/Layout/Layout";
 import Categories from "./pages/categories/Categories";
 import QrCodeCreate from "./pages/qrcode/QrCodeCreate";
 import UserBank from "./pages/bank/UserBank";
-import QrCodeList from "./pages/qrcode/QrCodeList";
 import Earnings from "./pages/earnings/Earnings";
+import Packets from "./pages/packets/Packets";
 
 
 function App() {
@@ -59,15 +59,15 @@ function App() {
                     path="qrcode"
                     element={
                         <Layout title="Qr Kodlar">
-                            <QrCodeList/>
+                            <QrCodeCreate/>
                         </Layout>
                     }
                 />
                 <Route
-                    path="qrcode/create"
+                    path="packets"
                     element={
-                        <Layout title="Qr Kodlar">
-                            <QrCodeCreate/>
+                        <Layout title="Paketlar">
+                            <Packets/>
                         </Layout>
                     }
                 />

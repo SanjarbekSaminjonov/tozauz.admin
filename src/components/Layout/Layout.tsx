@@ -19,7 +19,7 @@ import { Button } from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { mainListItems, secondaryListItems } from '../../MenuList';
+import { mainListItems } from '../../MenuList';
 
 import { authServices } from "../../services/auth.services";
 
@@ -165,8 +165,6 @@ function DashboardContent({ children, title }: { children: React.ReactNode, titl
                 <Divider />
                 <List component="nav">
                     {mainListItems}
-                    <Divider sx={{ my: 1 }} />
-                    {secondaryListItems}
                 </List>
             </Drawer>
             <Box
