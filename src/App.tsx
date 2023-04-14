@@ -15,19 +15,21 @@ import QrCodeCreate from "./pages/qrcode/QrCodeCreate";
 import UserBank from "./pages/bank/UserBank";
 import Earnings from "./pages/earnings/Earnings";
 import Packets from "./pages/packets/Packets";
+import EcoPacketBoxes from "./pages/ecoPacketBoxes/EcoPacketBoxes";
+import EcoPacketBoxDetail from "./pages/ecoPacketBoxes/EcoPacketBoxDetail";
 
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="login" element={<Login/>}/>
+                <Route path="login" element={<Login />} />
 
                 <Route
                     path="/"
                     element={
                         <Layout title="Bosh sahifa">
-                            <Home/>
+                            <Home />
                         </Layout>
                     }
                 />
@@ -35,7 +37,7 @@ function App() {
                     path="users"
                     element={
                         <Layout title="Foydalanuvchilar">
-                            <Users/>
+                            <Users />
                         </Layout>
                     }
                 />
@@ -43,7 +45,7 @@ function App() {
                     path="user-bank/:userId"
                     element={
                         <Layout title="Foydalanuvchi hisob kitoblari">
-                            <UserBank/>
+                            <UserBank />
                         </Layout>
                     }
                 />
@@ -51,7 +53,7 @@ function App() {
                     path="categories"
                     element={
                         <Layout title="Kategoriyalar">
-                            <Categories/>
+                            <Categories />
                         </Layout>
                     }
                 />
@@ -59,7 +61,7 @@ function App() {
                     path="qrcode"
                     element={
                         <Layout title="Qr Kodlar">
-                            <QrCodeCreate/>
+                            <QrCodeCreate />
                         </Layout>
                     }
                 />
@@ -67,7 +69,7 @@ function App() {
                     path="packets"
                     element={
                         <Layout title="Paketlar">
-                            <Packets/>
+                            <Packets />
                         </Layout>
                     }
                 />
@@ -75,7 +77,23 @@ function App() {
                     path="earnings"
                     element={
                         <Layout title="Ishlab topilgan pullar">
-                            <Earnings/>
+                            <Earnings />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="boxes"
+                    element={
+                        <Layout title="Eko packet qutilar">
+                            <EcoPacketBoxes />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="boxes/:boxId"
+                    element={
+                        <Layout title="Eko packet haqida barchasi">
+                            <EcoPacketBoxDetail />
                         </Layout>
                     }
                 />
