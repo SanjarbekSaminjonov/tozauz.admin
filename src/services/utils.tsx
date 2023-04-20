@@ -1,4 +1,6 @@
-export const formatDateTime = (date: string) => {
+export const formatDateTime = (date: string | undefined | null) => {
+    if (!date) return "";
+
     const d = new Date(date);
     const year = d.getFullYear();
     const month = `0${d.getMonth() + 1}`.slice(-2);

@@ -11,16 +11,24 @@ import Typography from '@mui/material/Typography';
 import {ecoPacketBoxesServices} from '../../services/ecoPacket/ecoPacketBoxes.services';
 import {formatDateTime} from "../../services/utils";
 import {categoriesServices} from "../../services/categories.services";
+import {Link} from "react-router-dom";
 
 const BoxCard = ({box}: any) => (
     <Box sx={{minWidth: 275}}>
         <Card variant="outlined">
             <CardContent>
                 <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-                    {formatDateTime(box.created_at)} da qo'shilgan
+                    {formatDateTime(box.cycle_created_at) || 'Ishga tushirilmagan'}
                 </Typography>
                 <Typography variant="h5" component="div">
-                    {box.name}
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                    }}>
+                        <span>{box.name}</span>
+                        <span>{box.state || 0}%</span>
+                    </div>
                 </Typography>
                 <Typography sx={{mb: 1.5}} color="text.secondary">
                     {box.category?.name}
@@ -30,7 +38,9 @@ const BoxCard = ({box}: any) => (
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Link to={`/boxes/${box.id}`}>
+                    <Button size="medium">Batafsil</Button>
+                </Link>
             </CardActions>
         </Card>
     </Box>
@@ -50,21 +60,37 @@ const EcoPacketBoxes = () => {
     React.useEffect(() => {
         categoriesServices.categories().then((res: any) => {
             setCategories(res);
-            console.log(res);
         });
     }, []);
 
     return (
         <div className='ecoPacketBoxes'>
-            <div className="header">Header</div>
+            <div
+                className="header"
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '20px'
+                }}
+            >
+                <h2>Header</h2>
+                <Button variant="contained">Qo'shish</Button>
+            </div>
             <div className="content">
                 {
                     rows.map((row: any) => {
-                        const category = categories?.find((category: any) => category.id === row.category);
-                        row.category = category;
-                        console.log(category);
+                        row.category = categories?.find((category: any) => category.id === row.category);
                         return (
-                            <div className="card" key={row.id}>
+                            <div
+                                className="card"
+                                key={row.id}
+                                style={{
+                                    border: '3px solid',
+                                    borderRadius: '5px',
+                                    borderColor: row.state > 80 ? 'red' : 'green'
+                                }}
+                            >
                                 <BoxCard
                                     box={row}
                                 />
