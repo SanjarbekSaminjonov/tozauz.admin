@@ -92,7 +92,7 @@ function App() {
                 <Route
                     path="boxes/:boxId"
                     element={
-                        <Layout title="Eko packet haqida barchasi">
+                        <Layout title="Eko packet haqida barcha ma'lumotlar">
                             <EcoPacketBoxDetail />
                         </Layout>
                     }
