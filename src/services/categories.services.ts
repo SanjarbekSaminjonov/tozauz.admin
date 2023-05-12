@@ -4,6 +4,10 @@ import { CategoryObj } from "../types/categories.types";
 
 
 export const categoriesServices = {
+    createCategory: async (data: CategoryObj) => {
+        return await requests('POST', 'packet/categories/', data);
+    },
+    
     getCategories: async () => {
         return await requests('GET', 'packet/categories/');
     },
@@ -11,6 +15,10 @@ export const categoriesServices = {
     updateCategory: async (data: CategoryObj) => {
         const id = data.id;
         return await requests('PUT', `packet/categories/${id}/`, data);
+    },
+
+    deleteCategory: async (categoryId: number) => {
+        return await requests('DELETE', `packet/categories/${categoryId}/`);
     },
 
     _categories: [] as CategoryObj[],

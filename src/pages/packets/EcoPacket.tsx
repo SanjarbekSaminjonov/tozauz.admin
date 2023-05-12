@@ -59,7 +59,7 @@ const EcoPacket = (props: any) => {
         },
         {
             id: "box",
-            label: "Quti",
+            label: "Yashik",
             align: "center",
             format: (row: any) => {
                 return <Link to={`/qrcodes/box/${row.box.id}?life_cycle=${row.life_cycle}`}>{row.box.name}</Link>;

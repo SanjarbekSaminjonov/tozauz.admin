@@ -10,7 +10,8 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions, Divider } from '@mui/material';
 
-import CategoryEditDialog from './CategoryEditDialog'
+import CategoryEditDialog from './CategoryEditDialog';
+import CategoryCreate from './CategoryCreate';
 
 function CardItem({ category, loadList }: { category: CategoryObj, loadList: (value: boolean) => void }) {
     return (
@@ -54,6 +55,9 @@ const Categories = () => {
 
     return (
         <div className='categories'>
+            <div>
+                <CategoryCreate loadList={setFromServer} />
+            </div>
             <div className="cards-list">
                 {categories.map((category) => (
                     <CardItem category={category} key={category.id} loadList={setFromServer} />

@@ -2,7 +2,6 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -22,6 +21,7 @@ export default function FormDialog({ category, loadList }: { category: CategoryO
     const [openErrorToast, setOpenErrorToast] = React.useState(false)
     const [openSuccessToast, setOpenSuccessToast] = React.useState(false)
     const [isLoading, setIsLoading] = React.useState(false)
+    const [successMessage, setSuccessMessage] = React.useState('')
     const [errorMessage, setErrorMessage] = React.useState('')
 
     const handleClickOpen = () => {
@@ -32,18 +32,34 @@ export default function FormDialog({ category, loadList }: { category: CategoryO
         setOpen(false);
     };
 
+    const handleDelete = () => {
+        setIsLoading(true);
+        categoriesServices.deleteCategory(category.id).then((res) => {
+            setIsLoading(false)
+            setSuccessMessage("Kateqoriya muvaffaqiyatli o'chirildi")
+            setOpenSuccessToast(true)
+            loadList(true)
+        }).catch((err) => {
+            setIsLoading(false)
+            setErrorMessage('Xatolik yuz berdi')
+            setOpenErrorToast(true)
+        })
+        setOpen(false)
+    }
+
     const handleSubmit = () => {
         category.name = name;
         category.summa = summa;
         setIsLoading(true)
         categoriesServices.updateCategory(category).then((res) => {
             setIsLoading(false)
+            setSuccessMessage("Kateqoriya muvaffaqiyatli yangilandi")
             setOpenSuccessToast(true)
             loadList(true)
         }).catch((err) => {
             setIsLoading(false)
-            setOpenErrorToast(true)
             setErrorMessage('Xatolik yuz berdi')
+            setOpenErrorToast(true)
         })
         setOpen(false);
     };
@@ -81,10 +97,18 @@ export default function FormDialog({ category, loadList }: { category: CategoryO
                         onChange={(e) => setSumma(Number(e.target.value))}
                     />
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Bekor qilish</Button>
-                    <Button onClick={handleSubmit}>Saqlash</Button>
-                </DialogActions>
+                <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "20px"
+                }}>
+                    <Button onClick={handleDelete} sx={{ color: "red" }}>O'chirish</Button>
+                    <div>
+                        <Button onClick={handleClose}>Bekor qilish</Button>
+                        <Button onClick={handleSubmit}>Saqlash</Button>
+                    </div>
+                </div>
                 <Toast
                     severity="error"
                     message={errorMessage}
@@ -100,7 +124,7 @@ export default function FormDialog({ category, loadList }: { category: CategoryO
             </Dialog>
             <Toast
                 severity="success"
-                message="Kateqoriya muvaffaqiyatli yangilandi"
+                message={successMessage}
                 isOpen={openSuccessToast}
                 handleClose={() => setOpenSuccessToast(false)}
             />
