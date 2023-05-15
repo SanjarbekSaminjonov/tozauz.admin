@@ -55,7 +55,7 @@ const Categories = () => {
 
     return (
         <div className='categories'>
-            <div>
+            <div className='createBtn'>
                 <CategoryCreate loadList={setFromServer} />
             </div>
             <div className="cards-list">

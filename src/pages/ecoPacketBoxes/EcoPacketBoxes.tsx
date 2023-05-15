@@ -69,12 +69,10 @@ const EcoPacketBoxes = () => {
                 className="header"
                 style={{
                     display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                    justifyContent: 'flex-end',
                     marginBottom: '20px'
                 }}
             >
-                <h2>Header</h2>
                 <Button variant="contained">Qo'shish</Button>
             </div>
             <div className="content">

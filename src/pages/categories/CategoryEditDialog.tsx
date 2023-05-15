@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { CategoryObj } from '../../types/categories.types';
@@ -12,6 +13,9 @@ import Toast from '../../components/Toast';
 
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+
+import { deleteButtonVisible } from '../../settings';
+
 
 export default function FormDialog({ category, loadList }: { category: CategoryObj, loadList: (value: boolean) => void }) {
     const [open, setOpen] = React.useState(false);
@@ -97,18 +101,11 @@ export default function FormDialog({ category, loadList }: { category: CategoryO
                         onChange={(e) => setSumma(Number(e.target.value))}
                     />
                 </DialogContent>
-                <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "20px"
-                }}>
-                    <Button onClick={handleDelete} sx={{ color: "red" }}>O'chirish</Button>
-                    <div>
-                        <Button onClick={handleClose}>Bekor qilish</Button>
-                        <Button onClick={handleSubmit}>Saqlash</Button>
-                    </div>
-                </div>
+                <DialogActions>
+                    {deleteButtonVisible && <Button onClick={handleDelete} sx={{ color: "red" }}>O'chirish</Button>}
+                    <Button onClick={handleClose}>Bekor qilish</Button>
+                    <Button onClick={handleSubmit}>Saqlash</Button>
+                </DialogActions>
                 <Toast
                     severity="error"
                     message={errorMessage}
