@@ -7,9 +7,11 @@ export const getUsers = async (
     pageIndex: number,
     pageSize: number
 ) => {
-    let url = `account/admin-register/?page=${pageIndex}&page_size=${pageSize}`
+    let url = `account/admin-register/?page_size=${pageSize}`
     if (search) {
         url += `&search=${search}`
+    } else {
+        url += `&page=${pageIndex}`
     }
     if (selectedRole) {
         url += `&role=${selectedRole}`

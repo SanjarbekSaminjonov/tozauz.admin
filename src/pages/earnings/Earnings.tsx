@@ -142,6 +142,7 @@ const Earnings = () => {
 
     const handleSearch = (e: any) => {
         setSearch(e.target.value);
+        setPageIndex(0);
     }
 
     const handleCategorySelect = (e: any) => {

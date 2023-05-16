@@ -18,6 +18,7 @@ import Packets from "./pages/packets/Packets";
 import EcoPacketBoxes from "./pages/ecoPacketBoxes/EcoPacketBoxes";
 import EcoPacketBoxDetail from "./pages/ecoPacketBoxes/EcoPacketBoxDetail";
 import { EcoPacketBoxCreate } from "./pages/ecoPacketBoxes/EcoPacketBoxCreate";
+import EcoPacketBoxDelete from "./pages/ecoPacketBoxes/EcoPacketBoxDelete";
 
 
 function App() {
@@ -103,6 +104,14 @@ function App() {
                     element={
                         <Layout title="Eko packet yashik haqida barcha ma'lumotlar">
                             <EcoPacketBoxDetail />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="boxes/:boxId/delete"
+                    element={
+                        <Layout title="Eko packet yashik">
+                            <EcoPacketBoxDelete />
                         </Layout>
                     }
                 />

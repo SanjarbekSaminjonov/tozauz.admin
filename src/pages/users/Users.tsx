@@ -46,6 +46,7 @@ const Users = () => {
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
+        setPage(0);
     };
 
     const handleRoleSelect = (event: any) => {

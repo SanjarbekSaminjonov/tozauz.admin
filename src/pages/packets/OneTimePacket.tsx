@@ -94,6 +94,7 @@ const OneTimePacket = (props: any) => {
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
+        setPageIndex(0);
     }
 
     const handleCategorySelect = (event: any) => {

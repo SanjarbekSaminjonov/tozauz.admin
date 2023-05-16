@@ -1,14 +1,16 @@
 import './ecoPacketBoxDetail.scss'
 
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import Paper from "@mui/material/Paper";
-import {ecoPacketBoxesServices} from "../../services/ecoPacket/ecoPacketBoxes.services";
-import {formatDateTime} from "../../services/utils";
+import { ecoPacketBoxesServices } from "../../services/ecoPacket/ecoPacketBoxes.services";
+import { formatDateTime } from "../../services/utils";
+import BackLink from '../../components/BackLink';
+import { Button } from '@mui/material';
 
 const EcoPacketBoxDetail = () => {
 
-    const {boxId} = useParams<{ boxId: string }>();
+    const { boxId } = useParams<{ boxId: string }>();
 
     const [box, setBox] = useState<any>(null);
 
@@ -21,8 +23,9 @@ const EcoPacketBoxDetail = () => {
 
     return (
         <div className={"boxDetail"}>
+            <BackLink pathName={'/boxes'} />
             <Paper elevation={3} className="header">
-                <h2 className="title">Quti ma'lumotlari</h2>
+                <h2 className="title">Quti ma'lumotlari {!box && "topilmadi"}</h2>
                 {box && (
                     <div className="content">
                         <div className="item">
@@ -54,7 +57,16 @@ const EcoPacketBoxDetail = () => {
                         <span className="divider"></span>
 
                         <div className="item">
-                            Button
+                            <Link to={`/boxes/${box.id}/delete`}>
+                                <Button sx={{
+                                    backgroundColor: "red",
+                                    fontWeight: "bold",
+                                    ":hover": { backgroundColor: "red" }
+                                }}
+                                    variant="contained">
+                                    O'chirish
+                                </Button>
+                            </Link>
                         </div>
 
                     </div>

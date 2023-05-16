@@ -1,13 +1,17 @@
 import './ecoPacketBoxCreate.scss'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Backdrop, Button, CircularProgress, Container } from '@mui/material'
 import Select from 'react-select';
 import { categoriesServices } from '../../services/categories.services';
 import { CategoryObj } from '../../types/categories.types';
 import { ecoPacketBoxesServices } from '../../services/ecoPacket/ecoPacketBoxes.services';
+import BackLink from '../../components/BackLink';
 
 export const EcoPacketBoxCreate = () => {
+    const navigate = useNavigate()
+
     const [categoryOptions, setCategoryOptions] = useState([] as { value: number, label: string }[])
     const [isLoading, setIsLoading] = useState(false)
 
@@ -48,9 +52,9 @@ export const EcoPacketBoxCreate = () => {
         }
 
         setIsLoading(true)
-        ecoPacketBoxesServices.create(form).then(res => {
+        ecoPacketBoxesServices.create({ ...form, sim_module: form.simModule }).then(res => {
             alert('Muvaffaqiyatli yaratildi');
-            // TODO: redirect to created box
+            navigate(`/boxes/${res.data.id}`)
             setIsLoading(false)
         }).catch(() => {
             alert('Kutilmagan xatolik yuz berdi');
@@ -59,21 +63,10 @@ export const EcoPacketBoxCreate = () => {
     }
 
     return (
-        <div className="qrcodes">
-
+        <div className="createEcoBox">   
+            <BackLink pathName='/boxes' />
             <Container maxWidth="sm">
                 <h1 className='title'>Yangi yashik ma'lumotlarini kiriting</h1>
-
-                <div className="formElement">
-                    <input
-                        onChange={(e: any) => setForm({ ...form, name: e.target.value })}
-                        className='numberInput'
-                        name="name"
-                        type="text"
-                        placeholder="Nomi"
-                        maxLength={5}
-                    />
-                </div>
 
                 <div className="formElement">
                     <Select
@@ -89,12 +82,22 @@ export const EcoPacketBoxCreate = () => {
 
                 <div className="formElement">
                     <input
+                        onChange={(e: any) => setForm({ ...form, name: e.target.value })}
+                        className='numberInput'
+                        name="name"
+                        type="text"
+                        placeholder="Nomi"
+                    />
+                </div>
+
+                <div className="formElement">
+                    <input
                         onChange={(e: any) => setForm({ ...form, simModule: e.target.value })}
                         className='numberInput'
                         name="simModule"
                         type="text"
                         placeholder="Sim moduli"
-                        maxLength={5}
+                        maxLength={15}
                     />
                 </div>
 

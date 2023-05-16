@@ -5,7 +5,7 @@ export const earningServices = {
         userId: string,
         pageIndex: number,
         pageSize: number
-    ) => requests('GET', `bank/earning-list/${userId}/?page=${pageIndex}&page_size=${pageSize}`),
+    ) => requests('GET', `bank/earning-list/${userId}/?page_size=${pageSize}`),
 
     get: (
         pageIndex: number,
@@ -21,6 +21,8 @@ export const earningServices = {
         }
         if (search) {
             url += `&search=${search}`
+        } else {
+            url += `&page=${pageIndex}`
         }
         if (startDate) {
             url += `&start_date=${startDate}`
