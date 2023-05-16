@@ -8,16 +8,16 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import {ecoPacketBoxesServices} from '../../services/ecoPacket/ecoPacketBoxes.services';
-import {formatDateTime} from "../../services/utils";
-import {categoriesServices} from "../../services/categories.services";
-import {Link} from "react-router-dom";
+import { ecoPacketBoxesServices } from '../../services/ecoPacket/ecoPacketBoxes.services';
+import { formatDateTime } from "../../services/utils";
+import { categoriesServices } from "../../services/categories.services";
+import { Link } from "react-router-dom";
 
-const BoxCard = ({box}: any) => (
-    <Box sx={{minWidth: 275}}>
+const BoxCard = ({ box }: any) => (
+    <Box sx={{ minWidth: 275 }}>
         <Card variant="outlined">
             <CardContent>
-                <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     {formatDateTime(box.cycle_created_at) || 'Ishga tushirilmagan'}
                 </Typography>
                 <Typography variant="h5" component="div">
@@ -30,7 +30,7 @@ const BoxCard = ({box}: any) => (
                         <span>{box.state || 0}%</span>
                     </div>
                 </Typography>
-                <Typography sx={{mb: 1.5}} color="text.secondary">
+                <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     {box.category?.name}
                 </Typography>
                 <Typography variant="body2">
@@ -73,7 +73,9 @@ const EcoPacketBoxes = () => {
                     marginBottom: '20px'
                 }}
             >
-                <Button variant="contained">Qo'shish</Button>
+                <Link to={`/boxes/create`}>
+                    <Button variant="contained">Qo'shish</Button>
+                </Link>
             </div>
             <div className="content">
                 {

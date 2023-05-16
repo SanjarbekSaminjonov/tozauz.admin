@@ -17,6 +17,7 @@ import Earnings from "./pages/earnings/Earnings";
 import Packets from "./pages/packets/Packets";
 import EcoPacketBoxes from "./pages/ecoPacketBoxes/EcoPacketBoxes";
 import EcoPacketBoxDetail from "./pages/ecoPacketBoxes/EcoPacketBoxDetail";
+import { EcoPacketBoxCreate } from "./pages/ecoPacketBoxes/EcoPacketBoxCreate";
 
 
 function App() {
@@ -84,15 +85,23 @@ function App() {
                 <Route
                     path="boxes"
                     element={
-                        <Layout title="Eko packet qutilar">
+                        <Layout title="Eko packet yashiklar">
                             <EcoPacketBoxes />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="boxes/create"
+                    element={
+                        <Layout title="Eko packet yashik qo'shish">
+                            <EcoPacketBoxCreate />
                         </Layout>
                     }
                 />
                 <Route
                     path="boxes/:boxId"
                     element={
-                        <Layout title="Eko packet haqida barcha ma'lumotlar">
+                        <Layout title="Eko packet yashik haqida barcha ma'lumotlar">
                             <EcoPacketBoxDetail />
                         </Layout>
                     }

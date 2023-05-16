@@ -1,116 +1,115 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { CategoryObj } from '../../types/categories.types';
+import './ecoPacketBoxCreate.scss'
+import { useState } from 'react';
+
+import { Backdrop, Button, CircularProgress, Container } from '@mui/material'
+import Select from 'react-select';
 import { categoriesServices } from '../../services/categories.services';
+import { CategoryObj } from '../../types/categories.types';
+import { ecoPacketBoxesServices } from '../../services/ecoPacket/ecoPacketBoxes.services';
 
-import Toast from '../../components/Toast';
+export const EcoPacketBoxCreate = () => {
+    const [categoryOptions, setCategoryOptions] = useState([] as { value: number, label: string }[])
+    const [isLoading, setIsLoading] = useState(false)
 
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
+    const [form, setForm] = useState({
+        name: '',
+        category: '',
+        simModule: ''
+    })
 
-export default function FormDialog({ loadList }: { loadList: (value: boolean) => void }) {
-    const [open, setOpen] = React.useState(false);
-    const [name, setName] = React.useState('');
-    const [summa, setSumma] = React.useState(0);
-
-    const [openErrorToast, setOpenErrorToast] = React.useState(false)
-    const [openSuccessToast, setOpenSuccessToast] = React.useState(false)
-    const [isLoading, setIsLoading] = React.useState(false)
-    const [successMessage, setSuccessMessage] = React.useState('')
-    const [errorMessage, setErrorMessage] = React.useState('')
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleSubmit = () => {
-        const category: CategoryObj = {
-            id: 0,
-            name: name,
-            summa: summa,
-            count_user: 0
-        }
+    useState(() => {
         setIsLoading(true)
-        categoriesServices.createCategory(category).then((res) => {
+        if (categoryOptions.length === 0) {
+            categoriesServices.categories().then(res => {
+                setCategoryOptions(res.map((item: CategoryObj) => {
+                    return { value: item.id, label: item.name }
+                }))
+                setIsLoading(false)
+            })
+        }
+    })
+
+    const onSubmit = (e: any) => {
+        e.preventDefault()
+
+        if (!form.name) {
+            alert('Nomi kiritilmagan')
+            return
+        }
+
+        if (!form.category) {
+            alert('Kategoriyani tanlang')
+            return
+        }
+
+        if (!form.simModule) {
+            alert('Miqdorini kiriting')
+            return
+        }
+
+        setIsLoading(true)
+        ecoPacketBoxesServices.create(form).then(res => {
+            alert('Muvaffaqiyatli yaratildi');
+            // TODO: redirect to created box
             setIsLoading(false)
-            setSuccessMessage("Kateqoriya muvaffaqiyatli qo'shildi")
-            setOpenSuccessToast(true)
-            loadList(true)
-        }).catch((err) => {
-            setIsLoading(false)
-            setErrorMessage('Xatolik yuz berdi')
-            setOpenErrorToast(true)
+        }).catch(() => {
+            alert('Kutilmagan xatolik yuz berdi');
+            setIsLoading(false);
         })
-        setOpen(false);
-    };
+    }
 
     return (
-        <div>
-            <Button size="large" color="primary" variant="contained" onClick={handleClickOpen}>
-                Yangi kategoriya
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Yangi kategoriya</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Yangi kategoriya qo'shish uchun nomi va summasini kiriting
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Kategoriya nomi"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        defaultValue={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="summa"
-                        label="Kategoriya summasi"
-                        type="number"
-                        fullWidth
-                        variant="standard"
-                        defaultValue={summa}
-                        onChange={(e) => setSumma(Number(e.target.value))}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Bekor qilish</Button>
-                    <Button onClick={handleSubmit}>Saqlash</Button>
-                </DialogActions>
+        <div className="qrcodes">
 
-                <Toast
-                    severity="error"
-                    message={errorMessage}
-                    isOpen={openErrorToast}
-                    handleClose={() => setOpenErrorToast(false)}
-                />
-                <Backdrop
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                    open={isLoading}
-                >
-                    <CircularProgress color="inherit" />
-                </Backdrop>
-            </Dialog >
-            <Toast
-                severity="success"
-                message={successMessage}
-                isOpen={openSuccessToast}
-                handleClose={() => setOpenSuccessToast(false)}
-            />
-        </div >
-    );
+            <Container maxWidth="sm">
+                <h1 className='title'>Yangi yashik ma'lumotlarini kiriting</h1>
+
+                <div className="formElement">
+                    <input
+                        onChange={(e: any) => setForm({ ...form, name: e.target.value })}
+                        className='numberInput'
+                        name="name"
+                        type="text"
+                        placeholder="Nomi"
+                        maxLength={5}
+                    />
+                </div>
+
+                <div className="formElement">
+                    <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        isLoading={isLoading}
+                        name="category"
+                        onChange={(e: any) => setForm({ ...form, category: e.value })}
+                        options={categoryOptions}
+                        placeholder="Kategoriyasi"
+                    />
+                </div>
+
+                <div className="formElement">
+                    <input
+                        onChange={(e: any) => setForm({ ...form, simModule: e.target.value })}
+                        className='numberInput'
+                        name="simModule"
+                        type="text"
+                        placeholder="Sim moduli"
+                        maxLength={5}
+                    />
+                </div>
+
+                <div className="formElement submitBtn">
+                    <Button onClick={onSubmit} fullWidth variant="contained">Saqlash</Button>
+                </div>
+
+            </Container>
+
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={isLoading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+        </div>
+    )
 }
