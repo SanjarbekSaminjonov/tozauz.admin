@@ -13,9 +13,10 @@ export const earningServices = {
         selectedCategory: number,
         search: string,
         startDate: string,
-        endDate: string
+        endDate: string,
+        earnerType: string,
     ) => {
-        let url = `bank/earning-list/?page=${pageIndex}&page_size=${pageSize}`
+        let url = `bank/earning-list/?page_size=${pageSize}&bank_account__user__role=${earnerType.toUpperCase()}`
         if (selectedCategory) {
             url += `&tarrif=${selectedCategory}`
         }

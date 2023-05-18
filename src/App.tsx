@@ -70,13 +70,13 @@ function App() {
                 <Route
                     path="packets"
                     element={
-                        <Layout title="Paketlar">
+                        <Layout title="Monitoring">
                             <Packets />
                         </Layout>
                     }
                 />
                 <Route
-                    path="earnings"
+                    path="earnings/:earnerType"
                     element={
                         <Layout title="Ishlab topilgan pullar">
                             <Earnings />

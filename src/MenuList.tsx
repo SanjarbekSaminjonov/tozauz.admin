@@ -43,13 +43,14 @@ export const mainListItems = (
             <ListItemIcon>
                 <LocalMallIcon />
             </ListItemIcon>
-            <ListItemText primary="Paketlar" />
+            <ListItemText primary="Monitoring" />
         </ListItemButton>
-        <ListItemButton component={Link} to={"/earnings"}>
+
+        <ListItemButton component={Link} to={"/boxes"}>
             <ListItemIcon>
-                <LocalAtmIcon />
+                <InventoryIcon />
             </ListItemIcon>
-            <ListItemText primary="Pul ishlash" />
+            <ListItemText primary="Yashiklar" />
         </ListItemButton>
         
         {/* <ListItemButton component={Link} to={"/"}>
@@ -58,12 +59,18 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="----------" />
         </ListItemButton> */}
-        
-        <ListItemButton component={Link} to={"/boxes"}>
+
+        <ListItemButton component={Link} to={"/earnings/pop"}>
             <ListItemIcon>
-                <InventoryIcon />
+                <LocalAtmIcon />
             </ListItemIcon>
-            <ListItemText primary="Yashiklar" />
+            <ListItemText primary="Aholi daromadlari" />
+        </ListItemButton>
+        <ListItemButton component={Link} to={"/earnings/emp"}>
+            <ListItemIcon>
+                <LocalAtmIcon />
+            </ListItemIcon>
+            <ListItemText primary="Hodimlar daromadlari" />
         </ListItemButton>
     </React.Fragment>
 );

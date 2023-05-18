@@ -1,5 +1,6 @@
 import './earnings.scss'
 import React, {useEffect, useState} from "react";
+import { useParams } from 'react-router-dom';
 import Paper from "@mui/material/Paper";
 import DataTable from "../../components/dataTable/DataTable";
 import {Column} from "../../types/table.types";
@@ -21,6 +22,7 @@ import Select from "react-select";
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
 const Earnings = () => {
+    const { earnerType } = useParams<string>();
 
     const startDateDefault = () => {
         let date = new Date();
@@ -62,12 +64,13 @@ const Earnings = () => {
             selectedCategory,
             search,
             startDate,
-            endDate
+            endDate,
+            earnerType || 'all'
         ).then(res => {
             setRows(res.data);
             setIsLoading(false);
         })
-    }, [pageIndex, pageSize, selectedCategory, search, startDate, endDate])
+    }, [pageIndex, pageSize, selectedCategory, search, startDate, endDate, earnerType])
 
     const columns: Column[] = [
         {
@@ -86,7 +89,7 @@ const Earnings = () => {
             id: 'tarrif',
             label: 'Tarif',
             align: 'center',
-            format: (row: any) => <Chip label={categories.find((item: any) => item.id === row.tarrif)?.name}/>
+            format: (row: any) => <Chip label={row.tarrif}/>
         },
         {
             id: 'box_packet',
@@ -209,13 +212,13 @@ const Earnings = () => {
                         <Select
                             options={
                                 [
-                                    {value: "", label: "Barchasi"},
+                                    {value: "", label: "Barcha tariflar"},
                                     ...categories.map((item: any) => {
-                                        return {value: item.id, label: item.name}
+                                        return {value: item.name, label: item.name}
                                     })
                                 ]
                             }
-                            defaultValue={{value: "", label: "Barchasi"}}
+                            defaultValue={{ value: "", label: "Barcha tariflar"}}
                             className="basic-multi-select"
                             classNamePrefix="select"
                             isSearchable={false}
