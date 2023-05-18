@@ -19,6 +19,7 @@ import EcoPacketBoxes from "./pages/ecoPacketBoxes/EcoPacketBoxes";
 import EcoPacketBoxDetail from "./pages/ecoPacketBoxes/EcoPacketBoxDetail";
 import { EcoPacketBoxCreate } from "./pages/ecoPacketBoxes/EcoPacketBoxCreate";
 import EcoPacketBoxDelete from "./pages/ecoPacketBoxes/EcoPacketBoxDelete";
+import PaymeList from "./pages/payme/PaymeList";
 
 
 function App() {
@@ -112,6 +113,14 @@ function App() {
                     element={
                         <Layout title="Eko packet yashik">
                             <EcoPacketBoxDelete />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="payme/:earnerType"
+                    element={
+                        <Layout title="Hodimlar pul so'rovlari">
+                            <PaymeList />
                         </Layout>
                     }
                 />

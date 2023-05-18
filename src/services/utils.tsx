@@ -22,3 +22,8 @@ export function numberWithCommas(x: number | null | undefined): string {
     if (x === null || x === undefined) return "0";
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
+
+export function formatCardNumberwith4(x: number | null | undefined): string {
+    if (x === null || x === undefined) return " - ";
+    return x.toString().replace(/\B(?=(\d{4})+(?!\d))/g, " ");
+}

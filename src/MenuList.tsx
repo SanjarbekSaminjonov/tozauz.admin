@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
 
+import ListSubheader from '@mui/material/ListSubheader';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
-// import BarChartIcon from '@mui/icons-material/BarChart';
+import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import { QrCode } from '@mui/icons-material';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
@@ -52,25 +53,47 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Yashiklar" />
         </ListItemButton>
-        
-        {/* <ListItemButton component={Link} to={"/"}>
+
+        {/* ---------------------------------------------------------------- */}
+
+        <hr />
+        <ListSubheader component="div" inset>
+            <h3>Hodimlar uchun</h3>
+        </ListSubheader>
+
+        <ListItemButton component={Link} to={"/payme/emp"}>
             <ListItemIcon>
                 <BarChartIcon />
             </ListItemIcon>
-            <ListItemText primary="----------" />
-        </ListItemButton> */}
+            <ListItemText primary="Pul so'rovlari" />
+        </ListItemButton>
+
+        <ListItemButton component={Link} to={"/earnings/emp"}>
+            <ListItemIcon>
+                <LocalAtmIcon />
+            </ListItemIcon>
+            <ListItemText primary="Daromadlar" />
+        </ListItemButton>
+
+        {/* ---------------------------------------------------------------- */}
+
+        <hr />
+        <ListSubheader component="div" inset>
+            <h3>Aholi uchun</h3>
+        </ListSubheader>
+
+        <ListItemButton component={Link} to={"/payme/pop"}>
+            <ListItemIcon>
+                <BarChartIcon />
+            </ListItemIcon>
+            <ListItemText primary="Pul so'rovlari" />
+        </ListItemButton>
 
         <ListItemButton component={Link} to={"/earnings/pop"}>
             <ListItemIcon>
                 <LocalAtmIcon />
             </ListItemIcon>
-            <ListItemText primary="Aholi daromadlari" />
-        </ListItemButton>
-        <ListItemButton component={Link} to={"/earnings/emp"}>
-            <ListItemIcon>
-                <LocalAtmIcon />
-            </ListItemIcon>
-            <ListItemText primary="Hodimlar daromadlari" />
+            <ListItemText primary="Daromadlar" />
         </ListItemButton>
     </React.Fragment>
 );

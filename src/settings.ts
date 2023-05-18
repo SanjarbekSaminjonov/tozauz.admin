@@ -1,1 +1,1 @@
-export const deleteButtonVisible = true;
+export const deleteButtonVisible = false;
