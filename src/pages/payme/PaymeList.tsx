@@ -123,8 +123,13 @@ const PaymeList = () => {
             label: "",
             align: "right",
             format: (row) => {
+                if (row.payed) {
+                    return <Button variant="text" >
+                        To'langan
+                    </Button>;
+                }
                 return <Link to={`/user-bank/${row.user.id}`}>
-                    <Button variant="contained">
+                    <Button variant="contained" color="error">
                         To'lash
                     </Button>
                 </Link>;
