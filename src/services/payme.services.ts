@@ -7,7 +7,7 @@ export const paymeServices = {
         pageSize: number = 5,
         search: string = "",
         userRole: string = "",
-        userId: undefined | number = undefined,
+        userId: any = undefined,
     ) => {
         let url = `bank/payme-list/?page_size=${pageSize}`;
 
@@ -27,4 +27,8 @@ export const paymeServices = {
 
         return await requests("GET", url);
     },
+
+    pay: async (paymeRequestId: number) => {
+        return await requests("PATCH", `bank/payme-payed/${paymeRequestId}/`);
+    }
 }
