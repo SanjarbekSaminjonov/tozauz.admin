@@ -1,26 +1,17 @@
 import {Column} from "../../types/table.types";
 import DataTable from "../../components/dataTable/DataTable";
 import React, {useEffect, useState} from "react";
-import {CategoryObj} from "../../types/categories.types";
-import {categoriesServices} from "../../services/categories.services";
 import {earningServices} from "../../services/earningServices";
 import {formatDateTime, numberWithCommas} from "../../services/utils";
 
 const UserEarnings = (props: any) => {
     const {userId, setEarningSumma} = props;
-    const [categories, setCategories] = useState<CategoryObj[]>([]);
     const [rows, setRows] = useState<any>(undefined);
 
     const [pageIndex, setPageIndex] = useState(0);
     const [pageSize, setPageSize] = useState(5);
 
     const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        categoriesServices.categories().then((res) => {
-            setCategories(res);
-        });
-    }, [])
 
     useEffect(() => {
         setLoading(true)
@@ -54,11 +45,7 @@ const UserEarnings = (props: any) => {
         {
             id: "tarrif",
             label: "Kategoriya",
-            align: "right",
-            format: (row: any) => {
-                const category = categories.find((item: CategoryObj) => item.id === row.tarrif);
-                return category?.name;
-            }
+            align: "right"
         }
     ]
 
