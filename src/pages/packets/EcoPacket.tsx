@@ -1,17 +1,17 @@
 import '../qrcode/table.scss'
 
-import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Select from "react-select";
-import {TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 
-import {Column} from "../../types/table.types";
-import {CategoryObj} from "../../types/categories.types";
-import {UserFetchResponse} from "../../types/users.types";
+import { Column } from "../../types/table.types";
+import { CategoryObj } from "../../types/categories.types";
+import { UserFetchResponse } from "../../types/users.types";
 import DataTable from "../../components/dataTable/DataTable";
-import {categoriesServices} from "../../services/categories.services";
-import {ecoPacketServices} from "../../services/qrcodes/ecoPacket.services";
-import {formatDateTime} from "../../services/utils";
+import { categoriesServices } from "../../services/categories.services";
+import { ecoPacketServices } from "../../services/qrcodes/ecoPacket.services";
+import { formatDateTime } from "../../services/utils";
 
 const EcoPacket = (props: any) => {
 
@@ -62,7 +62,12 @@ const EcoPacket = (props: any) => {
             label: "Yashik",
             align: "center",
             format: (row: any) => {
-                return <Link to={`/qrcodes/box/${row.box.id}?life_cycle=${row.life_cycle}`}>{row.box.name}</Link>;
+                if (row.box !== null && row.life_cycle !== null) {
+                    return <Link to={`/boxes/${row.box.id}?life_cycle=${row.life_cycle}`}>{row.box.name}</Link>
+                } else if (row.box !== null) {
+                    return <Link to={`/boxes/${row.box.id}`}>{row.box.name}</Link>
+                }
+                return "Ko'rsatilmagan";
             }
         },
         {
@@ -137,13 +142,13 @@ const EcoPacket = (props: any) => {
                     <Select
                         options={
                             [
-                                {value: "", label: "Barchasi"},
+                                { value: "", label: "Barchasi" },
                                 ...categories.map((item: any) => {
-                                    return {value: item.id, label: item.name}
+                                    return { value: item.id, label: item.name }
                                 })
                             ]
                         }
-                        defaultValue={{value: "", label: "Barchasi"}}
+                        defaultValue={{ value: "", label: "Barchasi" }}
                         className="basic-multi-select"
                         classNamePrefix="select"
                         name="category"

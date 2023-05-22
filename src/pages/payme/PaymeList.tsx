@@ -2,22 +2,21 @@ import React, { useEffect, useState } from "react";
 
 import { Button, TextField } from "@mui/material";
 
-import { User, UserFetchResponse } from "../../types/users.types";
 import { Column } from "../../types/table.types";
 import DataTable from "../../components/dataTable/DataTable";
 import { Link, useParams } from "react-router-dom";
 import { paymeServices } from "../../services/payme.services";
-import { formatCardNumberwith4 } from "../../services/utils";
+import { formatCardNumberwith4, formatDateTime, numberWithCommas } from "../../services/utils";
 
 const PaymeList = () => {
     const { earnerType } = useParams<string>()
 
-    const [rows, setRows] = useState<UserFetchResponse>({
+    const [rows, setRows] = useState({
         count: 0,
         next: null,
         previous: null,
         results: [],
-    } as UserFetchResponse);
+    });
 
     const [search, setSearch] = useState<string>("");
     const [page, setPage] = useState(0);
@@ -83,6 +82,17 @@ const PaymeList = () => {
             },
         },
         {
+            id: "created_at",
+            label: "So'rov vaqti",
+            minWidth: 50,
+            align: "right",
+            format: (row) => {
+                return (
+                    formatDateTime(row.created_at)
+                );
+            },
+        },
+        {
             id: "card",
             label: "Karta raqami",
             minWidth: 50,
@@ -98,11 +108,22 @@ const PaymeList = () => {
             },
         },
         {
+            id: "amount",
+            label: "Summa (so'm)",
+            minWidth: 50,
+            align: "right",
+            format: (row) => {
+                return (
+                    numberWithCommas(row.amount)
+                );
+            },
+        },
+        {
             id: "bank",
             label: "",
             align: "right",
-            format: (row: User) => {
-                return <Link to={`/user-bank/${row.id}`}>
+            format: (row) => {
+                return <Link to={`/user-bank/${row.user.id}`}>
                     <Button variant="contained">
                         To'lash
                     </Button>
