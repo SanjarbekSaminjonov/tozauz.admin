@@ -1,4 +1,4 @@
-import {requests} from "../requests";
+import { requests } from "../requests";
 
 const bankAccountServices = {
 
@@ -11,6 +11,10 @@ const bankAccountServices = {
         const bankAccount = await requests('GET', `bank/admin-bank-account/${userId}/`);
         return bankAccount.data;
     },
+
+    getDashboard: async () => {
+        return await requests('GET', 'dashboard/');
+    }
 }
 
 export default bankAccountServices;

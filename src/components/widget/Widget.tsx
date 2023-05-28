@@ -2,21 +2,20 @@ import "./widget.scss"
 import React from "react";
 import { WidgetProps } from "../../types/props.types";
 
-import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CurrencyExchangeOutlinedIcon from "@mui/icons-material/CurrencyExchangeOutlined";
 import BalanceOutlinedIcon from "@mui/icons-material/BalanceOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { numberWithCommas } from "../../services/utils";
+
 
 const Widget = (props: WidgetProps) => {
     const { type } = props
 
-    let title: string
     let icon: React.ReactNode
 
     switch (type) {
-        case "users":
-            title = "USERS";
+        case "pops":
             icon = (
                 <PersonOutlinedIcon
                     className="icon"
@@ -28,21 +27,7 @@ const Widget = (props: WidgetProps) => {
             )
             break
 
-        case "earnings":
-            title = "EARNINGS"
-            icon = (
-                <CurrencyExchangeOutlinedIcon
-                    className="icon"
-                    style={{
-                        color: "green",
-                        backgroundColor: "rgb(0, 255, 0, 0.2)"
-                    }}
-                />
-            )
-            break
-
-        case "balance":
-            title = "BALANCE"
+        case "emps":
             icon = (
                 <BalanceOutlinedIcon
                     className="icon"
@@ -54,8 +39,19 @@ const Widget = (props: WidgetProps) => {
             )
             break
 
+        case "earnings":
+            icon = (
+                <CurrencyExchangeOutlinedIcon
+                    className="icon"
+                    style={{
+                        color: "green",
+                        backgroundColor: "rgb(0, 255, 0, 0.2)"
+                    }}
+                />
+            )
+            break
+
         case "orders":
-            title = "ORDERS"
             icon = (
                 <ShoppingCartOutlinedIcon
                     className="icon"
@@ -68,7 +64,6 @@ const Widget = (props: WidgetProps) => {
             break
 
         default:
-            title = ""
             icon = <></>
             break;
     }
@@ -77,15 +72,11 @@ const Widget = (props: WidgetProps) => {
     return (
         <div className="widget">
             <div className="left">
-                <div className="title">{title}</div>
-                <div className="counter">1223</div>
-                <div className="link">See all users</div>
+                <div className="title">{props.title}</div>
+                <div className="counter">{numberWithCommas(props.count)} {type === "earnings" && "so'm"}</div>
+                <div className="link">{props.link}</div>
             </div>
             <div className="right">
-                <div className="percentage positive">  {/* positive or negative */}
-                    <KeyboardArrowUpOutlinedIcon />
-                    20 %
-                </div>
                 {icon}
             </div>
         </div>

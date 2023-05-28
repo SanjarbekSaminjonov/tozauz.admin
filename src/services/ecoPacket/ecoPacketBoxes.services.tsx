@@ -12,8 +12,10 @@ export const ecoPacketBoxesServices = {
     create: (data: any) => {
         return requests('POST', `ecopacket/box/`, data)
     },
-
     delete: (id: string) => {
         return requests('DELETE', `ecopacket/box/${id}/`)
+    },
+    getLifeCycles: (boxId: string) => {
+        return requests('GET', `ecopacket/life-cycle-list/?box=${boxId}`)
     }
 };
