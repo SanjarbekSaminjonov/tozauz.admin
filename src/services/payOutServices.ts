@@ -7,8 +7,10 @@ export const payOutServices = {
         pageSize: number
     ) => requests('GET', `bank/payout-list/${userId}/?page=${pageIndex}&page_size=${pageSize}`),
 
-    createPayOut: (userId: string, amount: number) => requests('POST', 'bank/payout-list-create/', {
+    createPayOut: (userId: string, amount: number, card: string, cardName: string) => requests('POST', 'bank/payout-list-create/', {
         user: userId,
-        amount: amount
+        amount: amount,
+        card: card,
+        card_name: cardName
     }),
 }

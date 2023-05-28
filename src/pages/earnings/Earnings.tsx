@@ -1,15 +1,15 @@
 import './earnings.scss'
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import Paper from "@mui/material/Paper";
 import DataTable from "../../components/dataTable/DataTable";
-import {Column} from "../../types/table.types";
-import {formatDateTime, numberWithCommas} from "../../services/utils";
-import {categoriesServices} from "../../services/categories.services";
-import {CategoryObj} from "../../types/categories.types";
-import {Link} from "react-router-dom";
-import {earningServices} from "../../services/earningServices";
-import {Chip, TextField} from "@mui/material";
+import { Column } from "../../types/table.types";
+import { formatDateTime, numberWithCommas } from "../../services/utils";
+import { categoriesServices } from "../../services/categories.services";
+import { CategoryObj } from "../../types/categories.types";
+import { Link } from "react-router-dom";
+import { earningServices } from "../../services/earningServices";
+import { Button, Chip, TextField } from "@mui/material";
 
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
 import EngineeringRoundedIcon from '@mui/icons-material/EngineeringRounded';
@@ -44,7 +44,7 @@ const Earnings = () => {
     const [search, setSearch] = useState<any>('');
     const [startDate, setStartDate] = useState<any>(startDateDefault());
     const [endDate, setEndDate] = useState<any>(endDateDefault());
-    const [dataRangeValue, setDataRangeValue] = useState<any>({value: "1month", label: "Oxirgi oy"});
+    const [dataRangeValue, setDataRangeValue] = useState<any>({ value: "1month", label: "Oxirgi oy" });
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -89,7 +89,7 @@ const Earnings = () => {
             id: 'tarrif',
             label: 'Tarif',
             align: 'center',
-            format: (row: any) => <Chip label={row.tarrif}/>
+            format: (row: any) => <Chip label={row.tarrif} />
         },
         {
             id: 'box_packet',
@@ -99,15 +99,20 @@ const Earnings = () => {
                 if (row.packet === null) {
                     return <Link to={`/boxes/${row.box}`}>
                         <Tooltip title="Qutini ko'rish" arrow>
-                            <DeleteSweepIcon style={{color: "#019109"}}/>
+                            <DeleteSweepIcon style={{ color: "#019109" }} />
                         </Tooltip>
                     </Link>
                 }
-                return <Link to={`/packets/${row.packet}`}>
-                    <Tooltip title="Paketni ko'rish" arrow>
-                        <LocalMallIcon style={{color: "#ff4646"}}/>
-                    </Tooltip>
-                </Link>
+                return <Tooltip title={row.packet.qr_code} arrow>
+                    <Button>
+                        <LocalMallIcon
+                            style={{ color: "#ff4646" }}
+                            onClick={() => {
+                                navigator.clipboard.writeText(row.packet.qr_code)
+                            }}
+                        />
+                    </Button>
+                </Tooltip>
             }
         },
         {
@@ -115,7 +120,7 @@ const Earnings = () => {
             label: 'Foydalanuvchi',
             align: 'right',
             format: (row: any) => (
-                <Link style={{textDecoration: "none", fontWeight: "bold"}} to={`/user-bank/${row.user.id}`}>
+                <Link style={{ textDecoration: "none", fontWeight: "bold" }} to={`/user-bank/${row.user.id}`}>
                     {row.user.first_name} {row.user.phone_number}
                 </Link>
             )
@@ -127,15 +132,15 @@ const Earnings = () => {
             format: (row: any) => {
                 if (row.user.role === 'ADMIN') {
                     return <Tooltip title="Administrator" arrow>
-                        <AdminPanelSettingsRoundedIcon style={{color: "#00bb00"}}/>
+                        <AdminPanelSettingsRoundedIcon style={{ color: "#00bb00" }} />
                     </Tooltip>
                 } else if (row.user.role === 'EMP') {
                     return <Tooltip title="Hodim" arrow>
-                        <EngineeringRoundedIcon style={{color: "#0000ff"}}/>
+                        <EngineeringRoundedIcon style={{ color: "#0000ff" }} />
                     </Tooltip>
                 } else if (row.user.role === 'POP') {
                     return <Tooltip title="Aholi" arrow>
-                        <PersonRoundedIcon style={{color: "#af0000"}}/>
+                        <PersonRoundedIcon style={{ color: "#af0000" }} />
                     </Tooltip>
                 }
             }
@@ -195,7 +200,7 @@ const Earnings = () => {
 
     return (
         <div className="earnings">
-            <h2 style={{marginBottom: "10px"}}>Ishlangan mablag' ({numberWithCommas(rows.amount__sum)} so'm)</h2>
+            <h2 style={{ marginBottom: "10px" }}>Ishlangan mablag' ({numberWithCommas(rows.amount__sum)} so'm)</h2>
             <Paper>
                 <div className={"tableHeader"}>
                     <div className="tableFilter">
@@ -212,13 +217,13 @@ const Earnings = () => {
                         <Select
                             options={
                                 [
-                                    {value: "", label: "Barcha tariflar"},
+                                    { value: "", label: "Barcha tariflar" },
                                     ...categories.map((item: any) => {
-                                        return {value: item.name, label: item.name}
+                                        return { value: item.name, label: item.name }
                                     })
                                 ]
                             }
-                            defaultValue={{ value: "", label: "Barcha tariflar"}}
+                            defaultValue={{ value: "", label: "Barcha tariflar" }}
                             className="basic-multi-select"
                             classNamePrefix="select"
                             isSearchable={false}
@@ -253,10 +258,10 @@ const Earnings = () => {
                         <Select
                             options={
                                 [
-                                    {value: "all", label: "Barchasi"},
-                                    {value: "today", label: "Bugun"},
-                                    {value: "1month", label: "Oxirgi oy"},
-                                    {value: "3month", label: "Oxirgi 3 oy"},
+                                    { value: "all", label: "Barchasi" },
+                                    { value: "today", label: "Bugun" },
+                                    { value: "1month", label: "Oxirgi oy" },
+                                    { value: "3month", label: "Oxirgi 3 oy" },
                                 ]
                             }
                             value={dataRangeValue}

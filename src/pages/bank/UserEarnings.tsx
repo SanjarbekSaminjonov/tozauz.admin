@@ -25,7 +25,7 @@ const UserEarnings = (props: any) => {
     const columns: readonly Column[] = [
         {
             id: "id",
-            label: "Tranzaksiya raqami",
+            label: "ID",
         },
         {
             id: "amount",

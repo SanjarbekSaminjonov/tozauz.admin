@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import {payOutServices} from "../../services/payOutServices";
+import { payOutServices } from "../../services/payOutServices";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 import Toast from "../../components/Toast";
@@ -15,12 +15,14 @@ import Toast from "../../components/Toast";
 export default function PayOutCreate(props: any) {
     const [open, setOpen] = React.useState(false);
     const [amount, setAmount] = React.useState(0)
+    const [card, setCard] = React.useState('')
+    const [cardName, setCardName] = React.useState('')
     const [loading, setLoading] = React.useState(false)
 
     const [openErrorToast, setOpenErrorToast] = React.useState(false)
     const [errorMessage, setErrorMessage] = React.useState('')
 
-    const {userId, reload, setLoadPayOut} = props
+    const { userId, reload, setLoadPayOut } = props
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -38,7 +40,7 @@ export default function PayOutCreate(props: any) {
         }
 
         setLoading(true)
-        payOutServices.createPayOut(userId, amount).then((res) => {
+        payOutServices.createPayOut(userId, amount, card, cardName).then((res) => {
             setLoading(false)
 
             if (res?.data.error) {
@@ -76,6 +78,24 @@ export default function PayOutCreate(props: any) {
                         fullWidth
                         variant="standard"
                         onChange={(e) => setAmount(Number(e.target.value))}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="card"
+                        label="Karta raqami"
+                        type="number"
+                        fullWidth
+                        variant="standard"
+                        onChange={(e) => setCard(e.target.value)}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="cardName"
+                        label="Karta nomi"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        onChange={(e) => setCardName(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>

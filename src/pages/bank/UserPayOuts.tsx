@@ -1,13 +1,13 @@
-import {Column} from "../../types/table.types";
+import { Column } from "../../types/table.types";
 import DataTable from "../../components/dataTable/DataTable";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
-import {payOutServices} from "../../services/payOutServices";
+import { payOutServices } from "../../services/payOutServices";
 
-import {formatDateTime, numberWithCommas} from "../../services/utils";
+import { formatDateTime, numberWithCommas } from "../../services/utils";
 
 const UserPayouts = (props: any) => {
-    const {userId, reload, setPayOutSumma} = props;
+    const { userId, reload, setPayOutSumma } = props;
     const [rows, setRows] = useState<any>(undefined);
 
     const [pageIndex, setPageIndex] = useState(0);
@@ -39,7 +39,7 @@ const UserPayouts = (props: any) => {
     const columns: readonly Column[] = [
         {
             id: "id",
-            label: "Tranzaksiya raqami",
+            label: "ID",
         },
         {
             id: "amount",
@@ -54,6 +54,21 @@ const UserPayouts = (props: any) => {
             align: "center",
             format: (row: any) => {
                 return formatDateTime(row.created_at);
+            }
+        },
+        {
+            id: "card",
+            label: "Karta",
+            align: "right",
+            format: (row: any) => {
+                if (!row.card) {
+                    return "Karta raqami kiritilmagan"
+                }
+                return <>
+                    {row.card}
+                    <br />
+                    {row.card_name}
+                </>
             }
         },
         {
