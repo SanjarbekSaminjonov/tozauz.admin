@@ -63,6 +63,7 @@ const EcoPacketBoxDetail = () => {
             label: "Hodim",
             align: 'center',
             format: (row) => {
+                if (!row.employee) return "-"
                 return <Link to={`/user-bank/${row.employee.id}`}>{row.employee.first_name} {row.employee.last_name}</Link>
             }
         },
