@@ -75,7 +75,10 @@ const EcoPacket = (props: any) => {
             label: "Foydalanuvchi",
             align: "center",
             format: (row: any) => {
-                return <Link to={`/user-bank/${row.user.id}`}>{row.user.first_name}</Link>;
+                if (row.user) {
+                    return <Link to={`/user-bank/${row.user.id}`}>{row.user.first_name}</Link>;
+                }
+                return "-"
             }
         },
         {
