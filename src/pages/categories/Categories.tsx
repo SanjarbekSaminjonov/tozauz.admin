@@ -1,19 +1,20 @@
 import './categories.scss'
 
-import { useEffect, useState } from "react"
+import {useEffect, useState} from "react"
 
-import { categoriesServices } from "../../services/categories.services"
-import { CategoryObj } from "../../types/categories.types"
+import {categoriesServices} from "../../services/categories.services"
+import {CategoryObj} from "../../types/categories.types"
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, CardActions, Divider } from '@mui/material';
+import {CardActionArea, CardActions, Divider} from '@mui/material';
 
 import CategoryEditDialog from './CategoryEditDialog';
 import CategoryCreate from './CategoryCreate';
+import {formatMoney, numberWithCommas} from "../../services/utils";
 
-function CardItem({ category, loadList }: { category: CategoryObj, loadList: (value: boolean) => void }) {
+function CardItem({category, loadList}: { category: CategoryObj, loadList: (value: boolean) => void }) {
     return (
         <Card sx={{
             maxWidth: 345,
@@ -25,18 +26,18 @@ function CardItem({ category, loadList }: { category: CategoryObj, loadList: (va
                     <Typography gutterBottom variant="h5" component="div">
                         {category.name}
                     </Typography>
-                    <Divider variant="fullWidth" sx={{ margin: "10px 0" }} />
+                    <Divider variant="fullWidth" sx={{margin: "10px 0"}}/>
                     <Typography variant="body2" color="text.secondary">
-                        Beriladigan summa: <b>{category.summa}</b>
+                        Beriladigan summa: <b>{formatMoney(category.summa)}</b>
                     </Typography>
-                    <Divider variant="fullWidth" sx={{ margin: "10px 0" }} />
+                    <Divider variant="fullWidth" sx={{margin: "10px 0"}}/>
                     <Typography variant="body2" color="text.secondary">
                         Kategoriyaga bog'langanlar: <b>{category.count_user || 0} ta</b>
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <CategoryEditDialog category={category} loadList={loadList} />
+                <CategoryEditDialog category={category} loadList={loadList}/>
             </CardActions>
         </Card>
     );
@@ -56,11 +57,11 @@ const Categories = () => {
     return (
         <div className='categories'>
             <div className='createBtn'>
-                <CategoryCreate loadList={setFromServer} />
+                <CategoryCreate loadList={setFromServer}/>
             </div>
             <div className="cards-list">
                 {categories.map((category) => (
-                    <CardItem category={category} key={category.id} loadList={setFromServer} />
+                    <CardItem category={category} key={category.id} loadList={setFromServer}/>
                 ))}
             </div>
         </div>

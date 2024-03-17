@@ -6,18 +6,17 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { CategoryObj } from '../../types/categories.types';
-import { categoriesServices } from '../../services/categories.services';
-
+import {CategoryObj} from '../../types/categories.types';
+import {categoriesServices} from '../../services/categories.services';
 import Toast from '../../components/Toast';
-
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import {NumberFormatValues, NumericFormat} from 'react-number-format';
 
-export default function FormDialog({ loadList }: { loadList: (value: boolean) => void }) {
+export default function FormDialog({loadList}: { loadList: (value: boolean) => void }) {
     const [open, setOpen] = React.useState(false);
     const [name, setName] = React.useState('');
-    const [summa, setSumma] = React.useState(0);
+    const [summa, setSumma] = React.useState<number | null>(0);
 
     const [openErrorToast, setOpenErrorToast] = React.useState(false)
     const [openSuccessToast, setOpenSuccessToast] = React.useState(false)
@@ -37,7 +36,7 @@ export default function FormDialog({ loadList }: { loadList: (value: boolean) =>
         const category: CategoryObj = {
             id: 0,
             name: name,
-            summa: summa,
+            summa: summa || 0,
             count_user: 0
         }
         setIsLoading(true)
@@ -53,6 +52,10 @@ export default function FormDialog({ loadList }: { loadList: (value: boolean) =>
         })
         setOpen(false);
     };
+
+    const onChangeCategorySum = (numeric: NumberFormatValues) => {
+        setSumma(numeric.value !== '' ? Number(numeric.value) : null)
+    }
 
     return (
         <div>
@@ -76,15 +79,16 @@ export default function FormDialog({ loadList }: { loadList: (value: boolean) =>
                         defaultValue={name}
                         onChange={(e) => setName(e.target.value)}
                     />
-                    <TextField
+                    <NumericFormat
+                        value={summa}
+                        thousandSeparator
+                        customInput={TextField}
                         margin="dense"
                         id="summa"
                         label="Kategoriya summasi"
-                        type="number"
                         fullWidth
                         variant="standard"
-                        defaultValue={summa}
-                        onChange={(e) => setSumma(Number(e.target.value))}
+                        onValueChange={onChangeCategorySum}
                     />
                 </DialogContent>
                 <DialogActions>
@@ -99,18 +103,18 @@ export default function FormDialog({ loadList }: { loadList: (value: boolean) =>
                     handleClose={() => setOpenErrorToast(false)}
                 />
                 <Backdrop
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
                     open={isLoading}
                 >
-                    <CircularProgress color="inherit" />
+                    <CircularProgress color="inherit"/>
                 </Backdrop>
-            </Dialog >
+            </Dialog>
             <Toast
                 severity="success"
                 message={successMessage}
                 isOpen={openSuccessToast}
                 handleClose={() => setOpenSuccessToast(false)}
             />
-        </div >
+        </div>
     );
 }
