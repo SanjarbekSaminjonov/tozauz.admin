@@ -1,9 +1,9 @@
 import './layout.scss';
 import * as React from 'react';
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {useEffect} from 'react';
+import {useLocation, useNavigate} from "react-router-dom";
 
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -14,14 +14,14 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { Button } from "@mui/material";
+import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
+import {Button} from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { mainListItems } from '../../MenuList';
+import {mainListItems} from '../../MenuList';
 
-import { authServices } from "../../services/auth.services";
+import {authServices} from "../../services/auth.services";
 
 
 const drawerWidth = 240;
@@ -33,7 +33,7 @@ interface AppBarProps extends MuiAppBarProps {
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
+})<AppBarProps>(({theme, open}) => ({
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
@@ -49,8 +49,8 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
+    ({theme, open}) => ({
         '& .MuiDrawer-paper': {
             position: 'relative',
             whiteSpace: 'nowrap',
@@ -75,12 +75,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-function DashboardContent({ children, title }: { children: React.ReactNode, title: string }) {
+function DashboardContent({children, title}: { children: React.ReactNode, title: string }) {
+
+    const navigate = useNavigate();
+    const {pathname} = useLocation();
+
     const [open, setOpen] = React.useState(true);
+
     const toggleDrawer = () => {
         setOpen(!open);
     };
-    const navigate = useNavigate();
     const admin = authServices.admin;
 
     useEffect(() => {
@@ -94,9 +98,14 @@ function DashboardContent({ children, title }: { children: React.ReactNode, titl
         navigate("/login");
     }
 
+    const earnerTypeText = () => {
+        if (pathname === "/payme/emp") return "Hodim"
+        if (pathname === "/payme/pop") return "Aholi"
+    }
+
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
+        <Box sx={{display: 'flex'}}>
+            <CssBaseline/>
             <AppBar position="absolute" open={open}>
                 <Toolbar
                     sx={{
@@ -110,19 +119,19 @@ function DashboardContent({ children, title }: { children: React.ReactNode, titl
                         onClick={toggleDrawer}
                         sx={{
                             marginRight: '36px',
-                            ...(open && { display: 'none' }),
+                            ...(open && {display: 'none'}),
                         }}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography
                         component="h1"
                         variant="h6"
                         color="inherit"
                         noWrap
-                        sx={{ flexGrow: 1 }}
+                        sx={{flexGrow: 1}}
                     >
-                        {title}
+                        {earnerTypeText()} {title}
                     </Typography>
                     {/* <IconButton color="inherit"> */}
                     {/* <Badge badgeContent={4} color="secondary">
@@ -135,12 +144,12 @@ function DashboardContent({ children, title }: { children: React.ReactNode, titl
                             <span className="phone_number">{admin.phoneNumber}</span>
                         </div>
 
-                        <AccountCircleIcon sx={{ fontSize: 40 }} />
+                        <AccountCircleIcon sx={{fontSize: 40}}/>
 
                         <div className="logout">
                             <Tooltip title="Chiqish">
-                                <Button onClick={handleLogout} variant="outlined" style={{ backgroundColor: 'white' }}>
-                                    <LogoutIcon />
+                                <Button onClick={handleLogout} variant="outlined" style={{backgroundColor: 'white'}}>
+                                    <LogoutIcon/>
                                 </Button>
                             </Tooltip>
                         </div>
@@ -159,10 +168,10 @@ function DashboardContent({ children, title }: { children: React.ReactNode, titl
                     <span></span> {/* move logo to center */}
                     <h2>TozaUz</h2>
                     <IconButton onClick={toggleDrawer}>
-                        <ChevronLeftIcon />
+                        <ChevronLeftIcon/>
                     </IconButton>
                 </Toolbar>
-                <Divider />
+                <Divider/>
                 <List component="nav">
                     {mainListItems}
                 </List>
@@ -176,7 +185,7 @@ function DashboardContent({ children, title }: { children: React.ReactNode, titl
                     overflow: 'auto',
                 }}
             >
-                <Toolbar />
+                <Toolbar/>
                 <div className="content">
                     {children}
                 </div>
@@ -185,6 +194,6 @@ function DashboardContent({ children, title }: { children: React.ReactNode, titl
     );
 }
 
-export default function Layout({ children, title }: { children: React.ReactNode, title: string }) {
+export default function Layout({children, title}: { children: React.ReactNode, title: string }) {
     return <DashboardContent title={title}> {children} </DashboardContent>;
 }

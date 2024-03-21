@@ -17,7 +17,7 @@ import Earnings from "./pages/earnings/Earnings";
 import Packets from "./pages/packets/Packets";
 import EcoPacketBoxes from "./pages/ecoPacketBoxes/EcoPacketBoxes";
 import EcoPacketBoxDetail from "./pages/ecoPacketBoxes/EcoPacketBoxDetail";
-import { EcoPacketBoxCreate } from "./pages/ecoPacketBoxes/EcoPacketBoxCreate";
+import {EcoPacketBoxCreate} from "./pages/ecoPacketBoxes/EcoPacketBoxCreate";
 import EcoPacketBoxDelete from "./pages/ecoPacketBoxes/EcoPacketBoxDelete";
 import PaymeList from "./pages/payme/PaymeList";
 
@@ -26,13 +26,13 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="login" element={<Login />} />
+                <Route path="login" element={<Login/>}/>
 
                 <Route
                     path="/"
                     element={
                         <Layout title="Bosh sahifa">
-                            <Home />
+                            <Home/>
                         </Layout>
                     }
                 />
@@ -40,7 +40,7 @@ function App() {
                     path="users"
                     element={
                         <Layout title="Foydalanuvchilar">
-                            <Users />
+                            <Users/>
                         </Layout>
                     }
                 />
@@ -48,7 +48,7 @@ function App() {
                     path="user-bank/:userId"
                     element={
                         <Layout title="Foydalanuvchi hisob kitoblari">
-                            <UserBank />
+                            <UserBank/>
                         </Layout>
                     }
                 />
@@ -56,7 +56,7 @@ function App() {
                     path="categories"
                     element={
                         <Layout title="Kategoriyalar">
-                            <Categories />
+                            <Categories/>
                         </Layout>
                     }
                 />
@@ -64,7 +64,7 @@ function App() {
                     path="qrcode"
                     element={
                         <Layout title="Qr Kodlar">
-                            <QrCodeCreate />
+                            <QrCodeCreate/>
                         </Layout>
                     }
                 />
@@ -72,7 +72,7 @@ function App() {
                     path="packets"
                     element={
                         <Layout title="Monitoring">
-                            <Packets />
+                            <Packets/>
                         </Layout>
                     }
                 />
@@ -80,7 +80,7 @@ function App() {
                     path="earnings/:earnerType"
                     element={
                         <Layout title="Ishlab topilgan pullar">
-                            <Earnings />
+                            <Earnings/>
                         </Layout>
                     }
                 />
@@ -88,7 +88,7 @@ function App() {
                     path="boxes"
                     element={
                         <Layout title="Eko packet yashiklar">
-                            <EcoPacketBoxes />
+                            <EcoPacketBoxes/>
                         </Layout>
                     }
                 />
@@ -96,7 +96,7 @@ function App() {
                     path="boxes/create"
                     element={
                         <Layout title="Eko packet yashik qo'shish">
-                            <EcoPacketBoxCreate />
+                            <EcoPacketBoxCreate/>
                         </Layout>
                     }
                 />
@@ -104,7 +104,7 @@ function App() {
                     path="boxes/:boxId"
                     element={
                         <Layout title="Eko packet yashik haqida barcha ma'lumotlar">
-                            <EcoPacketBoxDetail />
+                            <EcoPacketBoxDetail/>
                         </Layout>
                     }
                 />
@@ -112,15 +112,15 @@ function App() {
                     path="boxes/:boxId/delete"
                     element={
                         <Layout title="Eko packet yashik">
-                            <EcoPacketBoxDelete />
+                            <EcoPacketBoxDelete/>
                         </Layout>
                     }
                 />
                 <Route
                     path="payme/:earnerType"
                     element={
-                        <Layout title="Hodimlar pul so'rovlari">
-                            <PaymeList />
+                        <Layout title="pul so'rovlari">
+                            <PaymeList/>
                         </Layout>
                     }
                 />

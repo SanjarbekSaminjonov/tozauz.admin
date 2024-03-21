@@ -23,6 +23,10 @@ export function numberWithCommas(x: number | null | undefined): string {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
+export function formatMoney(money: number) {
+    return new Intl.NumberFormat().format(money)
+}
+
 export function formatCardNumberwith4(x: number | null | undefined): string {
     if (x === null || x === undefined) return " - ";
     return x.toString().replace(/\B(?=(\d{4})+(?!\d))/g, " ");

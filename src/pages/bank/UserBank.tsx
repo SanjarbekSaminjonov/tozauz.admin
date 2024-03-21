@@ -1,19 +1,19 @@
 import './userBank.scss'
 
 import React from 'react'
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 import bankAccountServices from "../../services/bank/bankAccount";
 import Paper from "@mui/material/Paper";
 import UserEarnings from "./UserEarnings";
 import UserPayouts from "./UserPayOuts";
 import PayOutCreate from "./PayOutCreate";
-import { numberWithCommas } from "../../services/utils";
+import {numberWithCommas} from "../../services/utils";
 import UserPaymeList from './UserPaymeList';
 
 
 const UserBank = () => {
-    const { userId } = useParams<{ userId: string }>();
+    const {userId} = useParams<{ userId: string }>();
     const [userBank, setUserBank] = React.useState<any>(undefined)
 
     const [earningSumma, setEarningSumma] = React.useState(0)
@@ -74,7 +74,7 @@ const UserBank = () => {
 
                                         <div className="item">
                                             <PayOutCreate reload={reload} setLoadPayOut={setReload}
-                                                userId={userId} />
+                                                          userId={userId}/>
                                         </div>
 
                                         <div></div>
@@ -83,24 +83,25 @@ const UserBank = () => {
                                 <div className="body">
                                     <div className="tableContainer left">
                                         <h2 className="title green">Pul so'rovlari</h2>
-                                        <UserPaymeList userId={userId}  reload={reload} setReloadPage={setReload} />
+                                        <UserPaymeList userId={userId} reload={reload} setReloadPage={setReload}/>
                                     </div>
                                 </div>
                                 <div className="body">
                                     <div className="tableContainer left">
                                         <h2 className="title green">
-                                            Kirimlar (Ishlab topilgan) <br /> {numberWithCommas(earningSumma)} so'm
+                                            Kirimlar (Ishlab topilgan) <br/> {numberWithCommas(earningSumma)} so'm
                                         </h2>
                                         <Paper elevation={3}>
-                                            <UserEarnings userId={userId} setEarningSumma={setEarningSumma} />
+                                            <UserEarnings userId={userId} setEarningSumma={setEarningSumma}/>
                                         </Paper>
                                     </div>
                                     <div className="tableContainer right">
                                         <h2 className="title red">
-                                            Chiqimlar (Yechib olingan) <br /> {numberWithCommas(payOutSumma)} so'm
+                                            Chiqimlar (Yechib olingan) <br/> {numberWithCommas(payOutSumma)} so'm
                                         </h2>
                                         <Paper elevation={3}>
-                                            <UserPayouts reload={reload} userId={userId} setPayOutSumma={setPayOutSumma} />
+                                            <UserPayouts reload={reload} userId={userId}
+                                                         setPayOutSumma={setPayOutSumma}/>
                                         </Paper>
                                     </div>
                                 </div>
